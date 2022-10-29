@@ -80,7 +80,7 @@
 | [CSL](players/CSL/README.md) | 总排名第 23 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片 2.0、猜数字、安全的在线测评、Latex 机器人、Flag 的痕迹、线路板、Flag 自动机、微积分计算小练习、杯窗鹅影、蒙特卡罗轮盘赌、惜字如金 (1/2)、置换魔群、光与影、片上系统 (1/2)、传达不到的文件、看不见的彼方、量子藏宝图、企鹅拼盘 (2/3)、火眼金睛的小 E (1/3) |
 | [Ben "Pig" Chu](https://benpigchu.github.io/pikanote/article/ustc-hackergame-2022-writeup.html) | 总排名第 16 名 | 签到、HeiLang、Xcaptcha、猫咪问答喵、家目录里的秘密、旅行照片 2.0、猜数字、LaTeX 机器人、安全的在线测评 - 无法 AC 的题目、线路板、Flag 自动机、微积分计算小练习、企鹅拼盘、光与影、杯窗鹅影、置换魔群、链上记忆大师 - 记忆练习、蒙特卡罗轮盘赌、看不见的彼方、片上系统、你先别急、Flag 的痕迹、惜字如金 - HS384、量子藏宝图、置换魔群、不可加密的异世界 |
 | [Lasius](players/Lasius/Lasius_alienus.md) | 总排名第 242 名 | 猜数字 |
-
+| [silentReason](players/silentReason/silentReason_writeup.md) | 总排名第 11 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、LaTeX 机器人、猜数字、Flag 的痕迹、安全的在线测评、线路板、Flag 自动机、光与影、杯窗鹅影、微积分计算小练习、蒙特卡罗轮盘赌、二次元神经网络、不可加密的异世界、置换魔群、传达不到的文件、看不见的彼方、量子藏宝图、《关于 RoboGame 的轮子永远调不准速度这件事》、企鹅拼盘、火眼金睛的小 E-1/2 |
 
 ## 其他资源
 
