@@ -103,15 +103,15 @@ document.getElementById('submit').click();
 ## 社工入门
 从照片中的
 
-![场馆名字](/USHIO/pic/TripPic1.png)
+![场馆名字](./pic/TripPic1.png)
 
 可以看出场馆名字是ZOZOMARINE STADIUM。在地图上查可以获得邮编261-0022。
 
 然后是错的，因为拍照的地方根据视角可以看出是在街对面的**APA HOTEL& RESORT TOKYO BAY MAKUHARI**，邮编是261-0021。(~~你们日本人有病吧隔条街邮编不一样害我搜到晚上3点还以为是飞机没找对~~)
 
 手机其实可以直接看EXIF的照相机型号sm6115=骁龙662，小米家只有红米9是这个处理器，直接搜`小米 骁龙662`就可以。但我当时没想到真就这一个，我是看的照片反光中的摄像头样式，然后跑去ZOL中关村在线筛选小米/红米肉眼遍历，得到分辨率`2340x1080`(~~有人上来写了个2340*1080没发现我不说是谁~~)。
-![摄像头](/USHIO/pic/TripPicCamera1.png)
-![摄像头](/USHIO/pic/TripPicCamera2.png)
+![摄像头](./pic/TripPicCamera1.png)
+![摄像头](./pic/TripPicCamera2.png)
 
 飞机就是EXIF信息发现时间2022/05/14 18:23然后跑去fr24看航线挨个搜，得到`HND HIJ NH683`
 
@@ -182,15 +182,15 @@ fclose(fp);
 # flag自动机
 用二进制编辑器打开看到了一个`Congratulations`和一个`flag_machine.txt`，感觉应该是操作成功的代码用的
 
-![自动机](/USHIO/pic/FlagMachine.png)
+![自动机](./pic/FlagMachine.png)
 
 IDA打开，找到这两行字符串的位置。
 
-![自动机2](/USHIO/pic/FlagMachine2.png)
+![自动机2](./pic/FlagMachine2.png)
 
 发现在地址为**loc_401840**的函数中，所以只要让程序直接调用这个函数。
 上面部分的代码是这个样子
-![自动机3](/USHIO/pic/FlagMachine3.png)
+![自动机3](./pic/FlagMachine3.png)
 因为中间有一个`PostQuitMessage`，猜测**loc_40191c**这里是退出按钮，所以直接把后面的跳转地址改成了**loc_401840**，打开程序按下退出按钮果然弹出窗口告诉我过了。
 
 # 微积分计算小练习
