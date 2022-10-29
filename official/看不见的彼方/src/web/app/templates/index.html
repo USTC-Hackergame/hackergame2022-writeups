@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <title>看不见的彼方</title>
+  </head>
+  <body>
+    <div class="container px-3 pt-3">
+        <h1>看不见的彼方</h1>
+        <div>
+            <form method=post enctype=multipart/form-data>
+            <div class="mb-3">
+                <label for="file1" class="form-label">(Alice) 请选择一个 x86_64 架构 Linux 格式的可执行文件。该文件将在有 flag 文件的 chroot 环境中运行，但是其输出不会提供：</label>
+                <input id="file1" type="file" name="file1" class="form-control-file">
+            </div>
+            <div class="mb-3">
+              <label for="file2" class="form-label">(Bob) 请选择一个 x86_64 架构 Linux 格式的可执行文件。该文件将在无 flag 文件的 chroot 环境中运行，其输出会显示在网页下方：</label>
+              <input id="file2" type="file" name="file2" class="form-control-file">
+          </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">上传运行</button>
+                <small id="help" class="form-text">
+                  总上传大小需小于 10MB。
+                </small>
+            </div>
+            </form>
+        </div>
+        <hr>
+        <div>
+            <h3>运行结果</h3>
+            <pre>{{ result }}</pre>
+        </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>二次元神经网络</title>
+  </head>
+  <body>
+    <div class="container px-3 pt-3">
+        <h1>二次元神经网络</h1>
+        <p>选择 <code>.pt</code> 格式文件的模型参数上传，要求小于 1 MB。</p>
+        <div>
+            <form method=post enctype=multipart/form-data>
+            <div class="mb-3 custom-file">
+                <label for="file" class="custom-file-label">选择文件</label>
+                <input id="file" type="file" name="file" accept=".pt" class="custom-file-input">
+            </div>
+            <div class="mb-3">
+              <button type="submit" class="btn btn-primary">上传模型并运行</button>
+            </div>
+            <small id="help" class="form-text">
+              <p>上传模型后将会由 <code>infer.py</code> 运行，下载运行脚本和示例模型：<a href="/static/files/2d_model.zip">2d_model.zip</a></p>
+            </small>
+            </form>
+        </div>
+        <div>
+          <h3>生成结果</h3>
+          {% if result %}
+          <div>
+            {% if 'flag' in result %}
+            <div class="alert alert-success" role="alert">
+              {{ result }}
+            </div>
+            {% else %}
+            <div class="alert alert-warning" role="alert">
+              {{ result }}
+            </div>
+            {% endif %}
+          </div>
+          <hr>
+          {% endif %}
+          <br />
+          <div class="row align-items-center mb-4">
+            <div class="col-4 text-center">
+              <b>输入标签</b>
+            </div>
+            <div class="col-4 text-center">
+              <b>模型生成图片</b>
+            </div>
+            <div class="col-4 text-center">
+              <b>预期图片</b>
+            </div>
+          </div>
+          {% for image in images %}
+          <div class="row align-items-center mb-4">
+            <div class="col-4 text-center">
+              {% for tag in image['tags'] %}
+              <span class="badge badge-info">{{ tag }}</span>
+              {% endfor %}
+            </div>
+            <div class="col-4 text-center">
+              {% if image['gen'] %}
+              <img src="{{ image['gen'] }}" class="img-fluid static-image">
+              {% else %}
+              无结果
+              {% endif %}
+            </div>
+            <div class="col-4 text-center">
+              <img src="/static/images/{{ image['refid'] }}.png" class="img-fluid static-image">
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+    </div>
+    <script src="static/jquery.min.js"></script>
+    <script src="static/bs-custom-file-input.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        bsCustomFileInput.init()
+      })
+    </script>
+  </body>
+</html>

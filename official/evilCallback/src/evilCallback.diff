@@ -1,0 +1,102 @@
+diff --git a/BUILD.gn b/BUILD.gn
+index a9ab6783fa..11bbae2b0d 100644
+--- a/BUILD.gn
++++ b/BUILD.gn
+@@ -107,7 +107,7 @@ declare_args() {
+   v8_enable_verify_csa = false
+ 
+   # Enable pointer compression (sets -dV8_COMPRESS_POINTERS).
+-  v8_enable_pointer_compression = ""
++  v8_enable_pointer_compression = false
+   v8_enable_31bit_smis_on_64bit_arch = false
+ 
+   # Sets -dOBJECT_PRINT.
+diff --git a/src/builtins/builtins-array.cc b/src/builtins/builtins-array.cc
+index ea21a19a86..74fcf3a305 100644
+--- a/src/builtins/builtins-array.cc
++++ b/src/builtins/builtins-array.cc
+@@ -42,16 +42,16 @@ inline bool HasOnlySimpleReceiverElements(Isolate* isolate, JSObject receiver) {
+   return JSObject::PrototypeHasNoElements(isolate, receiver);
+ }
+ 
+-inline bool HasOnlySimpleElements(Isolate* isolate, JSReceiver receiver) {
+-  DisallowGarbageCollection no_gc;
+-  PrototypeIterator iter(isolate, receiver, kStartAtReceiver);
+-  for (; !iter.IsAtEnd(); iter.Advance()) {
+-    if (iter.GetCurrent().IsJSProxy()) return false;
+-    JSObject current = iter.GetCurrent<JSObject>();
+-    if (!HasSimpleElements(current)) return false;
+-  }
+-  return true;
+-}
++// inline bool HasOnlySimpleElements(Isolate* isolate, JSReceiver receiver) {
++  // DisallowGarbageCollection no_gc;
++  // PrototypeIterator iter(isolate, receiver, kStartAtReceiver);
++  // for (; !iter.IsAtEnd(); iter.Advance()) {
++    // if (iter.GetCurrent().IsJSProxy()) return false;
++    // JSObject current = iter.GetCurrent<JSObject>();
++    // if (!HasSimpleElements(current)) return false;
++  // }
++  // return true;
++// }
+ 
+ // This method may transition the elements kind of the JSArray once, to make
+ // sure that all elements provided as arguments in the specified range can be
+@@ -1068,10 +1068,10 @@ bool IterateElements(Isolate* isolate, Handle<JSReceiver> receiver,
+     return IterateElementsSlow(isolate, receiver, length, visitor);
+   }
+ 
+-  if (!visitor->has_simple_elements() ||
+-      !HasOnlySimpleElements(isolate, *receiver)) {
+-    return IterateElementsSlow(isolate, receiver, length, visitor);
+-  }
++  // if (!visitor->has_simple_elements() ||
++      // !HasOnlySimpleElements(isolate, *receiver)) {
++    // return IterateElementsSlow(isolate, receiver, length, visitor);
++  // }
+   Handle<JSObject> array = Handle<JSObject>::cast(receiver);
+ 
+   switch (array->GetElementsKind()) {
+@@ -1086,7 +1086,7 @@ bool IterateElements(Isolate* isolate, Handle<JSReceiver> receiver,
+     case HOLEY_NONEXTENSIBLE_ELEMENTS:
+     case HOLEY_ELEMENTS: {
+       // Disallow execution so the cached elements won't change mid execution.
+-      DisallowJavascriptExecution no_js(isolate);
++      // DisallowJavascriptExecution no_js(isolate);
+ 
+       // Run through the elements FixedArray and use HasElement and GetElement
+       // to check the prototype for missing elements.
+@@ -1094,6 +1094,7 @@ bool IterateElements(Isolate* isolate, Handle<JSReceiver> receiver,
+       int fast_length = static_cast<int>(length);
+       DCHECK(fast_length <= elements->length());
+       FOR_WITH_HANDLE_SCOPE(isolate, int, j = 0, j, j < fast_length, j++, {
++        // there can be some magic between FAST and SLOW access to elements
+         Handle<Object> element_value(elements->get(j), isolate);
+         if (!element_value->IsTheHole(isolate)) {
+           if (!visitor->visit(j, element_value)) return false;
+@@ -1115,7 +1116,7 @@ bool IterateElements(Isolate* isolate, Handle<JSReceiver> receiver,
+     case HOLEY_DOUBLE_ELEMENTS:
+     case PACKED_DOUBLE_ELEMENTS: {
+       // Disallow execution so the cached elements won't change mid execution.
+-      DisallowJavascriptExecution no_js(isolate);
++      // DisallowJavascriptExecution no_js(isolate);
+ 
+       // Empty array is FixedArray but not FixedDoubleArray.
+       if (length == 0) break;
+@@ -1130,6 +1131,7 @@ bool IterateElements(Isolate* isolate, Handle<JSReceiver> receiver,
+       int fast_length = static_cast<int>(length);
+       DCHECK(fast_length <= elements->length());
+       FOR_WITH_HANDLE_SCOPE(isolate, int, j = 0, j, j < fast_length, j++, {
++        // there can be some magic between FAST and SLOW access to elements
+         if (!elements->is_the_hole(j)) {
+           double double_value = elements->get_scalar(j);
+           Handle<Object> element_value =
+@@ -1154,7 +1156,7 @@ bool IterateElements(Isolate* isolate, Handle<JSReceiver> receiver,
+ 
+     case DICTIONARY_ELEMENTS: {
+       // Disallow execution so the cached dictionary won't change mid execution.
+-      DisallowJavascriptExecution no_js(isolate);
++      // DisallowJavascriptExecution no_js(isolate);
+ 
+       Handle<NumberDictionary> dict(array->element_dictionary(), isolate);
+       std::vector<uint32_t> indices;

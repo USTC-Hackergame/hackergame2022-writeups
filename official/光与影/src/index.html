@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Light and Shadow</title>
+  <style type="text/css">
+    canvas {
+      width: 800px;
+      height: 600px;
+      display: block;
+      /* position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -300px;
+      margin-left: -400px; */
+    }
+
+    .playerBar {
+      background-color: #404040;
+      width: 800px;
+      height: 24px;
+    }
+
+    #divPlayer {
+      width: 800px;
+      display: block;
+      top: 100px;
+    }
+
+    .playerBarText {
+      color: white;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="divPlayer">
+    <div class="divcanvas">
+      <canvas id="canvas"></canvas>
+    </div>
+    <div class="playerBar">
+      <button class="uiButton" id="playResetButton">Time Reset</button>
+      <span id="playerTime" class="playerBarText" style="padding-left: 30px;">0.00</span>
+      <span id="playerFramerate" class="playerBarText" style="padding-left: 30px;">0.00 FPS</span>
+      <span id="playerResolution" class="playerBarText" style="padding-left: 30px;">800 x 600</span>
+      <span id="playerStatus" class="playerBarText" style="padding-left: 30px;">Program: Initializing...</span>
+      <button class="uiButton" style="float: right;" id="playPauseButton">PLAY</button>
+    </div>
+    <span id="extraInfo"></span>
+  </div>
+  <!--
+      for most samples webgl-utils only provides shader compiling/linking and
+      canvas resizing because why clutter the examples with code that's the same in every sample.
+      See https://webglfundamentals.org/webgl/lessons/webgl-boilerplate.html
+      and https://webglfundamentals.org/webgl/lessons/webgl-resizing-the-canvas.html
+      for webgl-utils, m3, m4, and webgl-lessons-ui.
+      -->
+  <script src="./webgl-utils.js"></script>
+  <script src="./vertex-shader.js"></script>
+  <script src="./fragment-shader.js"></script>
+  <script src="./render-main.js"></script>
+</body>

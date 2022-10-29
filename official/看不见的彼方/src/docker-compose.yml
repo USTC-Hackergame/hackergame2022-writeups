@@ -1,0 +1,36 @@
+# NOTE: git clone https://github.com/USTC-Hackergame/hackergame-challenge-docker.git
+# and checkout to branch hg2022 to get the folder 'dynamic_flag'
+
+version: '2.4'
+services:
+  challenge:
+    build: .
+    entrypoint: ["/bin/true"]
+  front:
+    extends:
+      file: ./dynamic_flag/docker-compose.yml
+      service: front
+    depends_on:
+      - challenge
+    networks:
+      - backend
+  web:
+    build: web
+    ports:
+      - ${web_port}:80
+    environment:
+      - nc_host=${nc_host}
+      - nc_port=${nc_port}
+    restart: always
+    networks:
+      - backend
+      - default
+    cpus: 1
+    mem_limit: 4g
+    memswap_limit: 4g
+    pids_limit: 128
+
+
+networks:
+  backend:
+    internal: true

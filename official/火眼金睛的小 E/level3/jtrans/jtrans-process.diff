@@ -1,0 +1,85 @@
+diff --git a/datautils/process.py b/datautils/process.py
+index a539a5f..db4fb63 100755
+--- a/datautils/process.py
++++ b/datautils/process.py
+@@ -1,24 +1,20 @@
++
++import sys
++sys.path.append('/home/elsa/Code/jTrans/datautils')
++
+ import idc
+ import idautils
++import os
++import pathlib
+ import idaapi
+ import pickle
+-import binaryai
+ import networkx as nx
+ from util.base import Binarybase
+ 
+-SAVEROOT = "./extract" # dir of pickle files saved by IDA
+-DATAROOT = "./dataset" # dir of binaries (not stripped)
+-
+ class BinaryData(Binarybase):
+     def __init__(self, unstrip_path):
+-        super(BinaryData, self).__init__(unstrip_path)
+-        self.fix_up()
+-    
+-    def fix_up(self):
+-        for addr in self.addr2name:
+-            # incase some functions' instructions are not recognized by IDA
+-            idc.create_insn(addr)  
+-            idc.add_func(addr) 
++        # super(BinaryData, self).__init__(unstrip_path)
++        pass
+ 
+     def get_asm(self, func):
+         instGenerator = idautils.FuncItems(func)
+@@ -69,36 +65,35 @@ class BinaryData(Binarybase):
+         return nx_graph  
+ 
+     def get_binai_feature(self, func):
++        return
+         return binaryai.ida.get_func_feature(func)
+ 
+     def extract_all(self):
+         for func in idautils.Functions():
+             if idc.get_segm_name(func) in ['.plt','extern','.init','.fini']:
+                 continue
+-            print("[+] %s" % idc.get_func_name(func))
++            func_name = idc.get_func_name(func)
++            print("[+] %s" % func_name)
+             asm_list = self.get_asm(func)
+             rawbytes_list = self.get_rawbytes(func)
+             cfg = self.get_cfg(func)
+             bai_feature = self.get_binai_feature(func)
+-            yield (self.addr2name[func], func, asm_list, rawbytes_list, cfg, bai_feature)
++            yield (func_name, func, asm_list, rawbytes_list, cfg, bai_feature)
+ 
+ if __name__ == "__main__":
+     import os
+     from collections import defaultdict
+ 
+-    assert os.path.exists(DATAROOT), "DATAROOT does not exist"
+-    assert os.path.exists(SAVEROOT), "SAVEROOT does not exist"
+-
+-    binary_abs_path = idc.get_input_file_path()
+-    filename = binary_abs_path.split('/')[-1][:-6]
+-    unstrip_path = os.path.join(DATAROOT, filename)
++    binary_abs_path = pathlib.Path(idc.get_input_file_path())
++    filename = binary_abs_path.name
+     idc.auto_wait()
+-    binary_data = BinaryData(unstrip_path)
++    binary_data = BinaryData(str(binary_abs_path))
+ 
+-    saved_dict = defaultdict(lambda: list)
+-    saved_path = os.path.join(SAVEROOT, filename + "_extract.pkl") # unpair data
++    saved_dict = {}
++    saved_path = binary_abs_path.parent / f'{filename}.pkl'
+     with open(saved_path, 'wb') as f:
+         for func_name, func, asm_list, rawbytes_list, cfg, bai_feature in binary_data.extract_all():
+             saved_dict[func_name] = [func, asm_list, rawbytes_list, cfg, bai_feature]
++        print(f'total len = {len(saved_dict)}')
+         pickle.dump(dict(saved_dict), f)
+     idc.qexit(0) # exit IDA
+\ No newline at end of file

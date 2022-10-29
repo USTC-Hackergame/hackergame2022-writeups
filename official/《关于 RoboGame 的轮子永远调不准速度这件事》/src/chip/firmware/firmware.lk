@@ -1,0 +1,19 @@
+-muwx
+-i firmware.ihx
+-M
+-Y
+-b HOME = 0x0000
+-b XSEG = 0x0001
+-b PSEG = 0x0001
+-b ISEG = 0x0000
+-b BSEG = 0x0000
+-k /usr/bin/../share/sdcc/lib/small
+-k /usr/share/sdcc/lib/small
+-l mcs51
+-l libsdcc
+-l libint
+-l liblong
+-l libfloat
+firmware.rel
+
+-e

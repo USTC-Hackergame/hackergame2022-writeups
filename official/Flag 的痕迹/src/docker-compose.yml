@@ -1,0 +1,28 @@
+version: '2'
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./dokuwiki:/mnt/app:ro
+    restart: always
+    cpus: 1
+    mem_limit: 4g
+    memswap_limit: 4g
+    pids_limit: 128
+  web:
+    image: nginx:1.23.1
+    ports:
+      - "15004:80"
+    depends_on:
+      - php
+    volumes_from:
+      - php
+    volumes:
+      - ./nginx:/etc/nginx/conf.d:ro
+    restart: always
+    cpus: 1
+    mem_limit: 4g
+    memswap_limit: 4g
+    pids_limit: 128

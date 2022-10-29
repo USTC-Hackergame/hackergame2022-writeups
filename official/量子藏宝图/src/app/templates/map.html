@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="static/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+        <title>坎瑞亚的宝藏图</title>
+    </head>
+    <body>
+    <div class="container mt-3 mb-3">
+        {%if fail_msg is defined%}
+        <div class="alert alert-danger" role="alert">{{fail_msg}}</div>
+        {%endif%}
+
+        <h3>第二章-第一幕</h3>
+
+
+        <p>发件人：匿名</p>
+        <p>收件人：旅行者</p>
+        <p>主题：RE:RE:关于寻找伯恩斯坦的量子算法</p>
+        <p>旅行者，我查询了古迹，发现伯恩斯坦的算法似乎可以以超越经典计算机的速度 O(1) 得到一个秘密字符串。如今，算法的全貌已不可考，只留下了一张<strong>藏宝图</strong>，可供旅行者窥探一二。而 <strong>FLAG</strong> 似乎正是作为秘密值藏在算法之中。</p>
+
+        <p>P.S. 下图是 Bernstein-Vazirani 算法的电路图，请你解出其中的秘密值。量子电路图可以参考：<a href="https://qiskit.org/textbook/ch-states/single-qubit-gates.html">这里</a></p>
+        <p>P.P.S. FLAG 是 flag{...} 的形式，使用 ASCII 编码，按大端序存储。q_127 对应第一个比特。</p>
+        <p>P.P.P.S. 首次生成藏宝图需要一段时间，请耐心等待。</p>
+        <hr />
+
+        {%if map_file_name is defined%}
+        <p>附件-藏宝图 {{map_uuid}}.png</p>
+        <img src="/{{map_file_name}}" class="img-fluid" alt="藏宝图" />
+        {%endif%}
+
+        <br />
+        <a href="/logout">重置任务</a>
+    </div>
+    <script src="static/jquery.min.js"></script>
+    <script src="static/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <title>Can you get my /flag with wine?</title>
+  </head>
+  <body>
+    <div class="container px-3 pt-3">
+        <h1>Can you get my flags with wine?</h1>
+        <div>
+            <form method=post enctype=multipart/form-data>
+            <div class="mb-3">
+                <label for="file" class="form-label">请选择一个 x86_64 架构 Windows 格式的可执行文件（小于 2M）：</label>
+                <input id="file" type="file" name="file" class="form-control-file">
+            </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">上传运行</button>
+                <small id="help" class="form-text">
+                  程序运行限时 10 秒。超过限时的程序仅会输出 Killed。
+                </small>
+            </div>
+            </form>
+        </div>
+        <hr>
+        <div>
+            <h3>运行结果</h3>
+            <pre>{{ result }}</pre>
+        </div>
+    </div>
+  </body>
+</html>

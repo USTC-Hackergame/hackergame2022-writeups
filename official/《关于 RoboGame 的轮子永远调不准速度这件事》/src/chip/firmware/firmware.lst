@@ -1,0 +1,1485 @@
+                                      1 ;--------------------------------------------------------
+                                      2 ; File Created by SDCC : free open source ANSI-C Compiler
+                                      3 ; Version 3.8.0 #10562 (Linux)
+                                      4 ;--------------------------------------------------------
+                                      5 	.module firmware
+                                      6 	.optsdcc -mmcs51 --model-small
+                                      7 	
+                                      8 ;--------------------------------------------------------
+                                      9 ; Public variables in this module
+                                     10 ;--------------------------------------------------------
+                                     11 	.globl _uint8_to_str_PARM_2
+                                     12 	.globl _tokenizer_init_PARM_2
+                                     13 	.globl _i2c_read_PARM_3
+                                     14 	.globl _i2c_read_PARM_2
+                                     15 	.globl _i2c_write_PARM_3
+                                     16 	.globl _i2c_write_PARM_2
+                                     17 	.globl _main
+                                     18 	.globl _port_to_int8
+                                     19 	.globl _str_to_uint8
+                                     20 	.globl _uint8_to_str
+                                     21 	.globl _tokenizer_next
+                                     22 	.globl _tokenizer_init
+                                     23 	.globl _serial_read_char
+                                     24 	.globl _i2c_status_to_error
+                                     25 	.globl _i2c_read
+                                     26 	.globl _i2c_write
+                                     27 	.globl _serial_print
+                                     28 	.globl _rand
+                                     29 	.globl _POWERSAVE
+                                     30 	.globl _POWEROFF
+                                     31 	.globl _I2C_READ_WRITE
+                                     32 	.globl _I2C_ADDRESS
+                                     33 	.globl _I2C_BUFFER_SIZE
+                                     34 	.globl _I2C_BUFFER_XRAM_HIGH
+                                     35 	.globl _I2C_BUFFER_XRAM_LOW
+                                     36 	.globl _I2C_STATUS
+                                     37 	.globl _SERIAL_IN_READY
+                                     38 	.globl _SERIAL_IN_DATA
+                                     39 	.globl _SERIAL_OUT_READY
+                                     40 	.globl _SERIAL_OUT_DATA
+                                     41 	.globl _table
+                                     42 	.globl _speedtb
+                                     43 	.globl _init_rand
+                                     44 ;--------------------------------------------------------
+                                     45 ; special function registers
+                                     46 ;--------------------------------------------------------
+                                     47 	.area RSEG    (ABS,DATA)
+      000000                         48 	.org 0x0000
+                           0000F2    49 _SERIAL_OUT_DATA	=	0x00f2
+                           0000F3    50 _SERIAL_OUT_READY	=	0x00f3
+                           0000FA    51 _SERIAL_IN_DATA	=	0x00fa
+                           0000FB    52 _SERIAL_IN_READY	=	0x00fb
+                           0000E1    53 _I2C_STATUS	=	0x00e1
+                           0000E2    54 _I2C_BUFFER_XRAM_LOW	=	0x00e2
+                           0000E3    55 _I2C_BUFFER_XRAM_HIGH	=	0x00e3
+                           0000E4    56 _I2C_BUFFER_SIZE	=	0x00e4
+                           0000E6    57 _I2C_ADDRESS	=	0x00e6
+                           0000E7    58 _I2C_READ_WRITE	=	0x00e7
+                           0000FF    59 _POWEROFF	=	0x00ff
+                           0000FE    60 _POWERSAVE	=	0x00fe
+                                     61 ;--------------------------------------------------------
+                                     62 ; special function bits
+                                     63 ;--------------------------------------------------------
+                                     64 	.area RSEG    (ABS,DATA)
+      000000                         65 	.org 0x0000
+                                     66 ;--------------------------------------------------------
+                                     67 ; overlayable register banks
+                                     68 ;--------------------------------------------------------
+                                     69 	.area REG_BANK_0	(REL,OVR,DATA)
+      000000                         70 	.ds 8
+                                     71 ;--------------------------------------------------------
+                                     72 ; internal ram data
+                                     73 ;--------------------------------------------------------
+                                     74 	.area DSEG    (DATA)
+      000000                         75 _init_rand::
+      000000                         76 	.ds 1
+      000001                         77 _speedtb::
+      000001                         78 	.ds 8
+      000009                         79 _table::
+      000009                         80 	.ds 20
+      00001D                         81 _main_t_131075_50:
+      00001D                         82 	.ds 5
+      000022                         83 _main_num_327687_70:
+      000022                         84 	.ds 4
+                                     85 ;--------------------------------------------------------
+                                     86 ; overlayable items in internal ram 
+                                     87 ;--------------------------------------------------------
+                                     88 	.area	OSEG    (OVR,DATA)
+                                     89 	.area	OSEG    (OVR,DATA)
+      000000                         90 _i2c_write_PARM_2:
+      000000                         91 	.ds 1
+      000001                         92 _i2c_write_PARM_3:
+      000001                         93 	.ds 2
+                                     94 	.area	OSEG    (OVR,DATA)
+      000000                         95 _i2c_read_PARM_2:
+      000000                         96 	.ds 1
+      000001                         97 _i2c_read_PARM_3:
+      000001                         98 	.ds 2
+                                     99 	.area	OSEG    (OVR,DATA)
+                                    100 	.area	OSEG    (OVR,DATA)
+      000000                        101 _tokenizer_init_PARM_2:
+      000000                        102 	.ds 3
+                                    103 	.area	OSEG    (OVR,DATA)
+      000000                        104 _tokenizer_next_t_65536_24:
+      000000                        105 	.ds 3
+      000003                        106 _tokenizer_next_token_start_65537_29:
+      000003                        107 	.ds 3
+                                    108 	.area	OSEG    (OVR,DATA)
+      000000                        109 _uint8_to_str_PARM_2:
+      000000                        110 	.ds 1
+      000001                        111 _uint8_to_str_sloc0_1_0:
+      000001                        112 	.ds 2
+                                    113 	.area	OSEG    (OVR,DATA)
+                                    114 ;--------------------------------------------------------
+                                    115 ; Stack segment in internal ram 
+                                    116 ;--------------------------------------------------------
+                                    117 	.area	SSEG
+      000000                        118 __start__stack:
+      000000                        119 	.ds	1
+                                    120 
+                                    121 ;--------------------------------------------------------
+                                    122 ; indirectly addressable internal ram data
+                                    123 ;--------------------------------------------------------
+                                    124 	.area ISEG    (DATA)
+                                    125 ;--------------------------------------------------------
+                                    126 ; absolute internal ram data
+                                    127 ;--------------------------------------------------------
+                                    128 	.area IABS    (ABS,DATA)
+                                    129 	.area IABS    (ABS,DATA)
+                                    130 ;--------------------------------------------------------
+                                    131 ; bit data
+                                    132 ;--------------------------------------------------------
+                                    133 	.area BSEG    (BIT)
+                                    134 ;--------------------------------------------------------
+                                    135 ; paged external ram data
+                                    136 ;--------------------------------------------------------
+                                    137 	.area PSEG    (PAG,XDATA)
+                                    138 ;--------------------------------------------------------
+                                    139 ; external ram data
+                                    140 ;--------------------------------------------------------
+                                    141 	.area XSEG    (XDATA)
+      000000                        142 _main_cmd_65537_43:
+      000000                        143 	.ds 384
+      000180                        144 _main_i2c_buf_65537_43:
+      000180                        145 	.ds 128
+      000200                        146 _main_i2c_buf2_65537_43:
+      000200                        147 	.ds 128
+                                    148 ;--------------------------------------------------------
+                                    149 ; absolute external ram data
+                                    150 ;--------------------------------------------------------
+                                    151 	.area XABS    (ABS,XDATA)
+                                    152 ;--------------------------------------------------------
+                                    153 ; external initialized ram data
+                                    154 ;--------------------------------------------------------
+                                    155 	.area XISEG   (XDATA)
+                                    156 	.area HOME    (CODE)
+                                    157 	.area GSINIT0 (CODE)
+                                    158 	.area GSINIT1 (CODE)
+                                    159 	.area GSINIT2 (CODE)
+                                    160 	.area GSINIT3 (CODE)
+                                    161 	.area GSINIT4 (CODE)
+                                    162 	.area GSINIT5 (CODE)
+                                    163 	.area GSINIT  (CODE)
+                                    164 	.area GSFINAL (CODE)
+                                    165 	.area CSEG    (CODE)
+                                    166 ;--------------------------------------------------------
+                                    167 ; interrupt vector 
+                                    168 ;--------------------------------------------------------
+                                    169 	.area HOME    (CODE)
+      000000                        170 __interrupt_vect:
+      000000 02r00r00         [24]  171 	ljmp	__sdcc_gsinit_startup
+                                    172 ;--------------------------------------------------------
+                                    173 ; global & static initialisations
+                                    174 ;--------------------------------------------------------
+                                    175 	.area HOME    (CODE)
+                                    176 	.area GSINIT  (CODE)
+                                    177 	.area GSFINAL (CODE)
+                                    178 	.area GSINIT  (CODE)
+                                    179 	.globl __sdcc_gsinit_startup
+                                    180 	.globl __sdcc_program_startup
+                                    181 	.globl __start__stack
+                                    182 	.globl __mcs51_genXINIT
+                                    183 	.globl __mcs51_genXRAMCLEAR
+                                    184 	.globl __mcs51_genRAMCLEAR
+                                    185 ;	firmware.c:23: int8_t init_rand=7;
+      000000 75*00 07         [24]  186 	mov	_init_rand,#0x07
+                                    187 ;	firmware.c:24: int8_t speedtb[8]={0x11,0x45,0x14,0x19,0x81,0x24,0x00,0x19};
+      000003 75*01 11         [24]  188 	mov	_speedtb,#0x11
+      000006 75*02 45         [24]  189 	mov	(_speedtb + 0x0001),#0x45
+      000009 75*03 14         [24]  190 	mov	(_speedtb + 0x0002),#0x14
+      00000C 75*04 19         [24]  191 	mov	(_speedtb + 0x0003),#0x19
+      00000F 75*05 81         [24]  192 	mov	(_speedtb + 0x0004),#0x81
+      000012 75*06 24         [24]  193 	mov	(_speedtb + 0x0005),#0x24
+      000015 75*07 00         [24]  194 	mov	(_speedtb + 0x0006),#0x00
+      000018 75*08 19         [24]  195 	mov	(_speedtb + 0x0007),#0x19
+                                    196 ;	firmware.c:137: uint8_t table[20]="0123456789ABCDEF";
+      00001B 75*09 30         [24]  197 	mov	_table,#0x30
+      00001E 75*0A 31         [24]  198 	mov	(_table + 0x0001),#0x31
+      000021 75*0B 32         [24]  199 	mov	(_table + 0x0002),#0x32
+      000024 75*0C 33         [24]  200 	mov	(_table + 0x0003),#0x33
+      000027 75*0D 34         [24]  201 	mov	(_table + 0x0004),#0x34
+      00002A 75*0E 35         [24]  202 	mov	(_table + 0x0005),#0x35
+      00002D 75*0F 36         [24]  203 	mov	(_table + 0x0006),#0x36
+      000030 75*10 37         [24]  204 	mov	(_table + 0x0007),#0x37
+      000033 75*11 38         [24]  205 	mov	(_table + 0x0008),#0x38
+      000036 75*12 39         [24]  206 	mov	(_table + 0x0009),#0x39
+      000039 75*13 41         [24]  207 	mov	(_table + 0x000a),#0x41
+      00003C 75*14 42         [24]  208 	mov	(_table + 0x000b),#0x42
+      00003F 75*15 43         [24]  209 	mov	(_table + 0x000c),#0x43
+      000042 75*16 44         [24]  210 	mov	(_table + 0x000d),#0x44
+      000045 75*17 45         [24]  211 	mov	(_table + 0x000e),#0x45
+      000048 75*18 46         [24]  212 	mov	(_table + 0x000f),#0x46
+      00004B 75*19 00         [24]  213 	mov	(_table + 0x0010),#0x00
+      00004E 75*1A 00         [24]  214 	mov	(_table + 0x0011),#0x00
+      000051 75*1B 00         [24]  215 	mov	(_table + 0x0012),#0x00
+      000054 75*1C 00         [24]  216 	mov	(_table + 0x0013),#0x00
+                                    217 	.area GSFINAL (CODE)
+      000000 02r00r03         [24]  218 	ljmp	__sdcc_program_startup
+                                    219 ;--------------------------------------------------------
+                                    220 ; Home
+                                    221 ;--------------------------------------------------------
+                                    222 	.area HOME    (CODE)
+                                    223 	.area HOME    (CODE)
+      000003                        224 __sdcc_program_startup:
+      000003 02r03r52         [24]  225 	ljmp	_main
+                                    226 ;	return from main will return to caller
+                                    227 ;--------------------------------------------------------
+                                    228 ; code
+                                    229 ;--------------------------------------------------------
+                                    230 	.area CSEG    (CODE)
+                                    231 ;------------------------------------------------------------
+                                    232 ;Allocation info for local variables in function 'rand'
+                                    233 ;------------------------------------------------------------
+                                    234 ;	firmware.c:25: int8_t rand(){
+                                    235 ;	-----------------------------------------
+                                    236 ;	 function rand
+                                    237 ;	-----------------------------------------
+      000000                        238 _rand:
+                           000007   239 	ar7 = 0x07
+                           000006   240 	ar6 = 0x06
+                           000005   241 	ar5 = 0x05
+                           000004   242 	ar4 = 0x04
+                           000003   243 	ar3 = 0x03
+                           000002   244 	ar2 = 0x02
+                           000001   245 	ar1 = 0x01
+                           000000   246 	ar0 = 0x00
+                                    247 ;	firmware.c:26: init_rand+=1;
+      000000 05*00            [12]  248 	inc	_init_rand
+                                    249 ;	firmware.c:27: init_rand&=7;
+      000002 53*00 07         [24]  250 	anl	_init_rand,#0x07
+                                    251 ;	firmware.c:28: return speedtb[init_rand];
+      000005 E5*00            [12]  252 	mov	a,_init_rand
+      000007 24r01            [12]  253 	add	a,#_speedtb
+      000009 F9               [12]  254 	mov	r1,a
+      00000A 87 82            [24]  255 	mov	dpl,@r1
+                                    256 ;	firmware.c:29: }
+      00000C 22               [24]  257 	ret
+                                    258 ;------------------------------------------------------------
+                                    259 ;Allocation info for local variables in function 'serial_print'
+                                    260 ;------------------------------------------------------------
+                                    261 ;s                         Allocated to registers 
+                                    262 ;------------------------------------------------------------
+                                    263 ;	firmware.c:31: void serial_print(const char *s) {
+                                    264 ;	-----------------------------------------
+                                    265 ;	 function serial_print
+                                    266 ;	-----------------------------------------
+      00000D                        267 _serial_print:
+      00000D AD 82            [24]  268 	mov	r5,dpl
+      00000F AE 83            [24]  269 	mov	r6,dph
+      000011 AF F0            [24]  270 	mov	r7,b
+                                    271 ;	firmware.c:32: while (*s) {
+      000013                        272 00104$:
+      000013 8D 82            [24]  273 	mov	dpl,r5
+      000015 8E 83            [24]  274 	mov	dph,r6
+      000017 8F F0            [24]  275 	mov	b,r7
+      000019 12r00r00         [24]  276 	lcall	__gptrget
+      00001C 60 16            [24]  277 	jz	00107$
+                                    278 ;	firmware.c:33: while (!SERIAL_OUT_READY);
+      00001E                        279 00101$:
+      00001E E5 F3            [12]  280 	mov	a,_SERIAL_OUT_READY
+      000020 60 FC            [24]  281 	jz	00101$
+                                    282 ;	firmware.c:34: SERIAL_OUT_DATA = *s++;
+      000022 8D 82            [24]  283 	mov	dpl,r5
+      000024 8E 83            [24]  284 	mov	dph,r6
+      000026 8F F0            [24]  285 	mov	b,r7
+      000028 12r00r00         [24]  286 	lcall	__gptrget
+      00002B F5 F2            [12]  287 	mov	_SERIAL_OUT_DATA,a
+      00002D A3               [24]  288 	inc	dptr
+      00002E AD 82            [24]  289 	mov	r5,dpl
+      000030 AE 83            [24]  290 	mov	r6,dph
+      000032 80 DF            [24]  291 	sjmp	00104$
+      000034                        292 00107$:
+                                    293 ;	firmware.c:36: }
+      000034 22               [24]  294 	ret
+                                    295 ;------------------------------------------------------------
+                                    296 ;Allocation info for local variables in function 'i2c_write'
+                                    297 ;------------------------------------------------------------
+                                    298 ;req_len                   Allocated with name '_i2c_write_PARM_2'
+                                    299 ;buf                       Allocated with name '_i2c_write_PARM_3'
+                                    300 ;port                      Allocated to registers r7 
+                                    301 ;status                    Allocated to registers r7 
+                                    302 ;------------------------------------------------------------
+                                    303 ;	firmware.c:38: int8_t i2c_write(int8_t port, uint8_t req_len, __xdata uint8_t *buf) {
+                                    304 ;	-----------------------------------------
+                                    305 ;	 function i2c_write
+                                    306 ;	-----------------------------------------
+      000035                        307 _i2c_write:
+      000035 AF 82            [24]  308 	mov	r7,dpl
+                                    309 ;	firmware.c:39: while (I2C_STATUS == 1) {
+      000037                        310 00101$:
+      000037 74 01            [12]  311 	mov	a,#0x01
+      000039 B5 E1 05         [24]  312 	cjne	a,_I2C_STATUS,00103$
+                                    313 ;	firmware.c:40: POWERSAVE = 1;  // Enter power save mode for a few milliseconds.
+      00003C 75 FE 01         [24]  314 	mov	_POWERSAVE,#0x01
+      00003F 80 F6            [24]  315 	sjmp	00101$
+      000041                        316 00103$:
+                                    317 ;	firmware.c:43: I2C_BUFFER_XRAM_LOW = (uint8_t)(uint16_t)buf;
+      000041 85*01 E2         [24]  318 	mov	_I2C_BUFFER_XRAM_LOW,_i2c_write_PARM_3
+                                    319 ;	firmware.c:44: I2C_BUFFER_XRAM_HIGH = (uint8_t)((uint16_t)buf >> 8);
+      000044 AE*02            [24]  320 	mov	r6,(_i2c_write_PARM_3 + 1)
+      000046 8E E3            [24]  321 	mov	_I2C_BUFFER_XRAM_HIGH,r6
+                                    322 ;	firmware.c:45: I2C_BUFFER_SIZE = req_len;
+      000048 85*00 E4         [24]  323 	mov	_I2C_BUFFER_SIZE,_i2c_write_PARM_2
+                                    324 ;	firmware.c:46: I2C_ADDRESS = port;
+      00004B 8F E6            [24]  325 	mov	_I2C_ADDRESS,r7
+                                    326 ;	firmware.c:48: I2C_READ_WRITE = 0;  // Start write.
+      00004D 75 E7 00         [24]  327 	mov	_I2C_READ_WRITE,#0x00
+                                    328 ;	firmware.c:51: while ((status = I2C_STATUS) == 1) {
+      000050                        329 00104$:
+      000050 AF E1            [24]  330 	mov	r7,_I2C_STATUS
+      000052 74 01            [12]  331 	mov	a,#0x01
+      000054 B5 E1 05         [24]  332 	cjne	a,_I2C_STATUS,00106$
+                                    333 ;	firmware.c:52: POWERSAVE = 1;  // Enter power save mode for a few milliseconds.
+      000057 75 FE 01         [24]  334 	mov	_POWERSAVE,#0x01
+      00005A 80 F4            [24]  335 	sjmp	00104$
+      00005C                        336 00106$:
+                                    337 ;	firmware.c:55: return status;
+      00005C 8F 82            [24]  338 	mov	dpl,r7
+                                    339 ;	firmware.c:56: }
+      00005E 22               [24]  340 	ret
+                                    341 ;------------------------------------------------------------
+                                    342 ;Allocation info for local variables in function 'i2c_read'
+                                    343 ;------------------------------------------------------------
+                                    344 ;req_len                   Allocated with name '_i2c_read_PARM_2'
+                                    345 ;buf                       Allocated with name '_i2c_read_PARM_3'
+                                    346 ;port                      Allocated to registers r7 
+                                    347 ;status                    Allocated to registers r7 
+                                    348 ;------------------------------------------------------------
+                                    349 ;	firmware.c:58: int8_t i2c_read(int8_t port, uint8_t req_len, __xdata uint8_t *buf) {
+                                    350 ;	-----------------------------------------
+                                    351 ;	 function i2c_read
+                                    352 ;	-----------------------------------------
+      00005F                        353 _i2c_read:
+      00005F AF 82            [24]  354 	mov	r7,dpl
+                                    355 ;	firmware.c:59: while (I2C_STATUS == 1) {
+      000061                        356 00101$:
+      000061 74 01            [12]  357 	mov	a,#0x01
+      000063 B5 E1 05         [24]  358 	cjne	a,_I2C_STATUS,00103$
+                                    359 ;	firmware.c:60: POWERSAVE = 1;  // Enter power save mode for a few milliseconds.
+      000066 75 FE 01         [24]  360 	mov	_POWERSAVE,#0x01
+      000069 80 F6            [24]  361 	sjmp	00101$
+      00006B                        362 00103$:
+                                    363 ;	firmware.c:63: I2C_BUFFER_XRAM_LOW = (uint8_t)(uint16_t)buf;
+      00006B 85*01 E2         [24]  364 	mov	_I2C_BUFFER_XRAM_LOW,_i2c_read_PARM_3
+                                    365 ;	firmware.c:64: I2C_BUFFER_XRAM_HIGH = (uint8_t)((uint16_t)buf >> 8);
+      00006E AE*02            [24]  366 	mov	r6,(_i2c_read_PARM_3 + 1)
+      000070 8E E3            [24]  367 	mov	_I2C_BUFFER_XRAM_HIGH,r6
+                                    368 ;	firmware.c:65: I2C_BUFFER_SIZE = req_len;
+      000072 85*00 E4         [24]  369 	mov	_I2C_BUFFER_SIZE,_i2c_read_PARM_2
+                                    370 ;	firmware.c:66: I2C_ADDRESS = port;
+      000075 8F E6            [24]  371 	mov	_I2C_ADDRESS,r7
+                                    372 ;	firmware.c:68: I2C_READ_WRITE = 1;  // Start read.
+      000077 75 E7 01         [24]  373 	mov	_I2C_READ_WRITE,#0x01
+                                    374 ;	firmware.c:71: while ((status = I2C_STATUS) == 1) {
+      00007A                        375 00104$:
+      00007A AF E1            [24]  376 	mov	r7,_I2C_STATUS
+      00007C 74 01            [12]  377 	mov	a,#0x01
+      00007E B5 E1 05         [24]  378 	cjne	a,_I2C_STATUS,00106$
+                                    379 ;	firmware.c:72: POWERSAVE = 1;  // Enter power save mode for a few milliseconds.
+      000081 75 FE 01         [24]  380 	mov	_POWERSAVE,#0x01
+      000084 80 F4            [24]  381 	sjmp	00104$
+      000086                        382 00106$:
+                                    383 ;	firmware.c:75: return status;
+      000086 8F 82            [24]  384 	mov	dpl,r7
+                                    385 ;	firmware.c:76: }
+      000088 22               [24]  386 	ret
+                                    387 ;------------------------------------------------------------
+                                    388 ;Allocation info for local variables in function 'i2c_status_to_error'
+                                    389 ;------------------------------------------------------------
+                                    390 ;err                       Allocated to registers r7 
+                                    391 ;------------------------------------------------------------
+                                    392 ;	firmware.c:78: const char *i2c_status_to_error(int8_t err) {
+                                    393 ;	-----------------------------------------
+                                    394 ;	 function i2c_status_to_error
+                                    395 ;	-----------------------------------------
+      000089                        396 _i2c_status_to_error:
+      000089 AF 82            [24]  397 	mov	r7,dpl
+                                    398 ;	firmware.c:79: switch (err) {
+      00008B BF 00 02         [24]  399 	cjne	r7,#0x00,00124$
+      00008E 80 0F            [24]  400 	sjmp	00101$
+      000090                        401 00124$:
+      000090 BF 01 02         [24]  402 	cjne	r7,#0x01,00125$
+      000093 80 11            [24]  403 	sjmp	00102$
+      000095                        404 00125$:
+      000095 BF 02 02         [24]  405 	cjne	r7,#0x02,00126$
+      000098 80 13            [24]  406 	sjmp	00103$
+      00009A                        407 00126$:
+                                    408 ;	firmware.c:80: case 0: return "i2c status: transaction completed / ready\n";
+      00009A BF 03 1E         [24]  409 	cjne	r7,#0x03,00105$
+      00009D 80 15            [24]  410 	sjmp	00104$
+      00009F                        411 00101$:
+      00009F 90r00r00         [24]  412 	mov	dptr,#___str_0
+      0000A2 75 F0 80         [24]  413 	mov	b,#0x80
+                                    414 ;	firmware.c:81: case 1: return "i2c status: busy\n";
+      0000A5 22               [24]  415 	ret
+      0000A6                        416 00102$:
+      0000A6 90r00r2B         [24]  417 	mov	dptr,#___str_1
+      0000A9 75 F0 80         [24]  418 	mov	b,#0x80
+                                    419 ;	firmware.c:82: case 2: return "i2c status: error - device not found\n";
+      0000AC 22               [24]  420 	ret
+      0000AD                        421 00103$:
+      0000AD 90r00r3D         [24]  422 	mov	dptr,#___str_2
+      0000B0 75 F0 80         [24]  423 	mov	b,#0x80
+                                    424 ;	firmware.c:83: case 3: return "i2c status: error - device misbehaved\n";
+      0000B3 22               [24]  425 	ret
+      0000B4                        426 00104$:
+      0000B4 90r00r63         [24]  427 	mov	dptr,#___str_3
+      0000B7 75 F0 80         [24]  428 	mov	b,#0x80
+                                    429 ;	firmware.c:84: }
+      0000BA 22               [24]  430 	ret
+      0000BB                        431 00105$:
+                                    432 ;	firmware.c:86: return "i2c status: unknown error\n";
+      0000BB 90r00r8A         [24]  433 	mov	dptr,#___str_4
+      0000BE 75 F0 80         [24]  434 	mov	b,#0x80
+                                    435 ;	firmware.c:87: }
+      0000C1 22               [24]  436 	ret
+                                    437 ;------------------------------------------------------------
+                                    438 ;Allocation info for local variables in function 'serial_read_char'
+                                    439 ;------------------------------------------------------------
+                                    440 ;	firmware.c:90: char serial_read_char(void) {
+                                    441 ;	-----------------------------------------
+                                    442 ;	 function serial_read_char
+                                    443 ;	-----------------------------------------
+      0000C2                        444 _serial_read_char:
+                                    445 ;	firmware.c:91: while (1) {
+      0000C2                        446 00104$:
+                                    447 ;	firmware.c:92: if (SERIAL_IN_READY) {
+      0000C2 E5 FB            [12]  448 	mov	a,_SERIAL_IN_READY
+      0000C4 60 04            [24]  449 	jz	00102$
+                                    450 ;	firmware.c:93: return (char)SERIAL_IN_DATA;
+      0000C6 85 FA 82         [24]  451 	mov	dpl,_SERIAL_IN_DATA
+      0000C9 22               [24]  452 	ret
+      0000CA                        453 00102$:
+                                    454 ;	firmware.c:96: POWERSAVE = 1;
+      0000CA 75 FE 01         [24]  455 	mov	_POWERSAVE,#0x01
+                                    456 ;	firmware.c:98: }
+      0000CD 80 F3            [24]  457 	sjmp	00104$
+                                    458 ;------------------------------------------------------------
+                                    459 ;Allocation info for local variables in function 'tokenizer_init'
+                                    460 ;------------------------------------------------------------
+                                    461 ;str                       Allocated with name '_tokenizer_init_PARM_2'
+                                    462 ;t                         Allocated to registers r5 r6 r7 
+                                    463 ;------------------------------------------------------------
+                                    464 ;	firmware.c:105: void tokenizer_init(struct tokenizer_st *t, char *str) {
+                                    465 ;	-----------------------------------------
+                                    466 ;	 function tokenizer_init
+                                    467 ;	-----------------------------------------
+      0000CF                        468 _tokenizer_init:
+                                    469 ;	firmware.c:106: t->ptr = str;
+      0000CF AD 82            [24]  470 	mov	r5,dpl
+      0000D1 AE 83            [24]  471 	mov	r6,dph
+      0000D3 AF F0            [24]  472 	mov	r7,b
+      0000D5 E5*00            [12]  473 	mov	a,_tokenizer_init_PARM_2
+      0000D7 12r00r00         [24]  474 	lcall	__gptrput
+      0000DA A3               [24]  475 	inc	dptr
+      0000DB E5*01            [12]  476 	mov	a,(_tokenizer_init_PARM_2 + 1)
+      0000DD 12r00r00         [24]  477 	lcall	__gptrput
+      0000E0 A3               [24]  478 	inc	dptr
+      0000E1 E5*02            [12]  479 	mov	a,(_tokenizer_init_PARM_2 + 2)
+      0000E3 12r00r00         [24]  480 	lcall	__gptrput
+                                    481 ;	firmware.c:107: t->replaced = 0x7fff;
+      0000E6 74 03            [12]  482 	mov	a,#0x03
+      0000E8 2D               [12]  483 	add	a,r5
+      0000E9 FD               [12]  484 	mov	r5,a
+      0000EA E4               [12]  485 	clr	a
+      0000EB 3E               [12]  486 	addc	a,r6
+      0000EC FE               [12]  487 	mov	r6,a
+      0000ED 8D 82            [24]  488 	mov	dpl,r5
+      0000EF 8E 83            [24]  489 	mov	dph,r6
+      0000F1 8F F0            [24]  490 	mov	b,r7
+      0000F3 74 FF            [12]  491 	mov	a,#0xff
+      0000F5 12r00r00         [24]  492 	lcall	__gptrput
+      0000F8 A3               [24]  493 	inc	dptr
+      0000F9 74 7F            [12]  494 	mov	a,#0x7f
+                                    495 ;	firmware.c:108: }
+      0000FB 02r00r00         [24]  496 	ljmp	__gptrput
+                                    497 ;------------------------------------------------------------
+                                    498 ;Allocation info for local variables in function 'tokenizer_next'
+                                    499 ;------------------------------------------------------------
+                                    500 ;t                         Allocated with name '_tokenizer_next_t_65536_24'
+                                    501 ;token_start               Allocated with name '_tokenizer_next_token_start_65537_29'
+                                    502 ;ch                        Allocated to registers r7 
+                                    503 ;------------------------------------------------------------
+                                    504 ;	firmware.c:110: char *tokenizer_next(struct tokenizer_st *t) {
+                                    505 ;	-----------------------------------------
+                                    506 ;	 function tokenizer_next
+                                    507 ;	-----------------------------------------
+      0000FE                        508 _tokenizer_next:
+      0000FE 85 82*00         [24]  509 	mov	_tokenizer_next_t_65536_24,dpl
+      000101 85 83*01         [24]  510 	mov	(_tokenizer_next_t_65536_24 + 1),dph
+      000104 85 F0*02         [24]  511 	mov	(_tokenizer_next_t_65536_24 + 2),b
+                                    512 ;	firmware.c:111: if (t->replaced != 0x7fff) {
+      000107 74 03            [12]  513 	mov	a,#0x03
+      000109 25*00            [12]  514 	add	a,_tokenizer_next_t_65536_24
+      00010B FA               [12]  515 	mov	r2,a
+      00010C E4               [12]  516 	clr	a
+      00010D 35*01            [12]  517 	addc	a,(_tokenizer_next_t_65536_24 + 1)
+      00010F FB               [12]  518 	mov	r3,a
+      000110 AC*02            [24]  519 	mov	r4,(_tokenizer_next_t_65536_24 + 2)
+      000112 8A 82            [24]  520 	mov	dpl,r2
+      000114 8B 83            [24]  521 	mov	dph,r3
+      000116 8C F0            [24]  522 	mov	b,r4
+      000118 12r00r00         [24]  523 	lcall	__gptrget
+      00011B F8               [12]  524 	mov	r0,a
+      00011C A3               [24]  525 	inc	dptr
+      00011D 12r00r00         [24]  526 	lcall	__gptrget
+      000120 F9               [12]  527 	mov	r1,a
+      000121 B8 FF 05         [24]  528 	cjne	r0,#0xff,00144$
+      000124 B9 7F 02         [24]  529 	cjne	r1,#0x7f,00144$
+      000127 80 21            [24]  530 	sjmp	00103$
+      000129                        531 00144$:
+                                    532 ;	firmware.c:112: *t->ptr = (char)t->replaced;
+      000129 85*00 82         [24]  533 	mov	dpl,_tokenizer_next_t_65536_24
+      00012C 85*01 83         [24]  534 	mov	dph,(_tokenizer_next_t_65536_24 + 1)
+      00012F 85*02 F0         [24]  535 	mov	b,(_tokenizer_next_t_65536_24 + 2)
+      000132 12r00r00         [24]  536 	lcall	__gptrget
+      000135 FD               [12]  537 	mov	r5,a
+      000136 A3               [24]  538 	inc	dptr
+      000137 12r00r00         [24]  539 	lcall	__gptrget
+      00013A FE               [12]  540 	mov	r6,a
+      00013B A3               [24]  541 	inc	dptr
+      00013C 12r00r00         [24]  542 	lcall	__gptrget
+      00013F FF               [12]  543 	mov	r7,a
+      000140 8D 82            [24]  544 	mov	dpl,r5
+      000142 8E 83            [24]  545 	mov	dph,r6
+      000144 8F F0            [24]  546 	mov	b,r7
+      000146 E8               [12]  547 	mov	a,r0
+      000147 12r00r00         [24]  548 	lcall	__gptrput
+                                    549 ;	firmware.c:115: while (*t->ptr == ' ') {
+      00014A                        550 00103$:
+      00014A 85*00 82         [24]  551 	mov	dpl,_tokenizer_next_t_65536_24
+      00014D 85*01 83         [24]  552 	mov	dph,(_tokenizer_next_t_65536_24 + 1)
+      000150 85*02 F0         [24]  553 	mov	b,(_tokenizer_next_t_65536_24 + 2)
+      000153 12r00r00         [24]  554 	lcall	__gptrget
+      000156 FD               [12]  555 	mov	r5,a
+      000157 A3               [24]  556 	inc	dptr
+      000158 12r00r00         [24]  557 	lcall	__gptrget
+      00015B FE               [12]  558 	mov	r6,a
+      00015C A3               [24]  559 	inc	dptr
+      00015D 12r00r00         [24]  560 	lcall	__gptrget
+      000160 FF               [12]  561 	mov	r7,a
+      000161 8D 82            [24]  562 	mov	dpl,r5
+      000163 8E 83            [24]  563 	mov	dph,r6
+      000165 8F F0            [24]  564 	mov	b,r7
+      000167 12r00r00         [24]  565 	lcall	__gptrget
+      00016A FD               [12]  566 	mov	r5,a
+      00016B BD 20 35         [24]  567 	cjne	r5,#0x20,00105$
+                                    568 ;	firmware.c:116: t->ptr++;
+      00016E 85*00 82         [24]  569 	mov	dpl,_tokenizer_next_t_65536_24
+      000171 85*01 83         [24]  570 	mov	dph,(_tokenizer_next_t_65536_24 + 1)
+      000174 85*02 F0         [24]  571 	mov	b,(_tokenizer_next_t_65536_24 + 2)
+      000177 12r00r00         [24]  572 	lcall	__gptrget
+      00017A FD               [12]  573 	mov	r5,a
+      00017B A3               [24]  574 	inc	dptr
+      00017C 12r00r00         [24]  575 	lcall	__gptrget
+      00017F FE               [12]  576 	mov	r6,a
+      000180 A3               [24]  577 	inc	dptr
+      000181 12r00r00         [24]  578 	lcall	__gptrget
+      000184 FF               [12]  579 	mov	r7,a
+      000185 0D               [12]  580 	inc	r5
+      000186 BD 00 01         [24]  581 	cjne	r5,#0x00,00147$
+      000189 0E               [12]  582 	inc	r6
+      00018A                        583 00147$:
+      00018A 85*00 82         [24]  584 	mov	dpl,_tokenizer_next_t_65536_24
+      00018D 85*01 83         [24]  585 	mov	dph,(_tokenizer_next_t_65536_24 + 1)
+      000190 85*02 F0         [24]  586 	mov	b,(_tokenizer_next_t_65536_24 + 2)
+      000193 ED               [12]  587 	mov	a,r5
+      000194 12r00r00         [24]  588 	lcall	__gptrput
+      000197 A3               [24]  589 	inc	dptr
+      000198 EE               [12]  590 	mov	a,r6
+      000199 12r00r00         [24]  591 	lcall	__gptrput
+      00019C A3               [24]  592 	inc	dptr
+      00019D EF               [12]  593 	mov	a,r7
+      00019E 12r00r00         [24]  594 	lcall	__gptrput
+      0001A1 80 A7            [24]  595 	sjmp	00103$
+      0001A3                        596 00105$:
+                                    597 ;	firmware.c:119: if (*t->ptr == '\0') {
+      0001A3 85*00 82         [24]  598 	mov	dpl,_tokenizer_next_t_65536_24
+      0001A6 85*01 83         [24]  599 	mov	dph,(_tokenizer_next_t_65536_24 + 1)
+      0001A9 85*02 F0         [24]  600 	mov	b,(_tokenizer_next_t_65536_24 + 2)
+      0001AC 12r00r00         [24]  601 	lcall	__gptrget
+      0001AF FD               [12]  602 	mov	r5,a
+      0001B0 A3               [24]  603 	inc	dptr
+      0001B1 12r00r00         [24]  604 	lcall	__gptrget
+      0001B4 FE               [12]  605 	mov	r6,a
+      0001B5 A3               [24]  606 	inc	dptr
+      0001B6 12r00r00         [24]  607 	lcall	__gptrget
+      0001B9 FF               [12]  608 	mov	r7,a
+      0001BA 8D 82            [24]  609 	mov	dpl,r5
+      0001BC 8E 83            [24]  610 	mov	dph,r6
+      0001BE 8F F0            [24]  611 	mov	b,r7
+      0001C0 12r00r00         [24]  612 	lcall	__gptrget
+                                    613 ;	firmware.c:120: return NULL;
+      0001C3 70 06            [24]  614 	jnz	00107$
+      0001C5 90 00 00         [24]  615 	mov	dptr,#0x0000
+      0001C8 F5 F0            [12]  616 	mov	b,a
+      0001CA 22               [24]  617 	ret
+      0001CB                        618 00107$:
+                                    619 ;	firmware.c:123: char *token_start = t->ptr;
+      0001CB 85*00 82         [24]  620 	mov	dpl,_tokenizer_next_t_65536_24
+      0001CE 85*01 83         [24]  621 	mov	dph,(_tokenizer_next_t_65536_24 + 1)
+      0001D1 85*02 F0         [24]  622 	mov	b,(_tokenizer_next_t_65536_24 + 2)
+      0001D4 12r00r00         [24]  623 	lcall	__gptrget
+      0001D7 F5*03            [12]  624 	mov	_tokenizer_next_token_start_65537_29,a
+      0001D9 A3               [24]  625 	inc	dptr
+      0001DA 12r00r00         [24]  626 	lcall	__gptrget
+      0001DD F5*04            [12]  627 	mov	(_tokenizer_next_token_start_65537_29 + 1),a
+      0001DF A3               [24]  628 	inc	dptr
+      0001E0 12r00r00         [24]  629 	lcall	__gptrget
+      0001E3 F5*05            [12]  630 	mov	(_tokenizer_next_token_start_65537_29 + 2),a
+      0001E5                        631 00113$:
+                                    632 ;	firmware.c:125: char ch = *t->ptr;
+      0001E5 85*00 82         [24]  633 	mov	dpl,_tokenizer_next_t_65536_24
+      0001E8 85*01 83         [24]  634 	mov	dph,(_tokenizer_next_t_65536_24 + 1)
+      0001EB 85*02 F0         [24]  635 	mov	b,(_tokenizer_next_t_65536_24 + 2)
+      0001EE 12r00r00         [24]  636 	lcall	__gptrget
+      0001F1 F8               [12]  637 	mov	r0,a
+      0001F2 A3               [24]  638 	inc	dptr
+      0001F3 12r00r00         [24]  639 	lcall	__gptrget
+      0001F6 F9               [12]  640 	mov	r1,a
+      0001F7 A3               [24]  641 	inc	dptr
+      0001F8 12r00r00         [24]  642 	lcall	__gptrget
+      0001FB FF               [12]  643 	mov	r7,a
+      0001FC 88 82            [24]  644 	mov	dpl,r0
+      0001FE 89 83            [24]  645 	mov	dph,r1
+      000200 8F F0            [24]  646 	mov	b,r7
+      000202 12r00r00         [24]  647 	lcall	__gptrget
+      000205 FF               [12]  648 	mov	r7,a
+                                    649 ;	firmware.c:126: if (ch != ' ' && ch != '\0') {
+      000206 BF 20 02         [24]  650 	cjne	r7,#0x20,00149$
+      000209 80 38            [24]  651 	sjmp	00109$
+      00020B                        652 00149$:
+      00020B EF               [12]  653 	mov	a,r7
+      00020C 60 35            [24]  654 	jz	00109$
+                                    655 ;	firmware.c:127: t->ptr++;
+      00020E 85*00 82         [24]  656 	mov	dpl,_tokenizer_next_t_65536_24
+      000211 85*01 83         [24]  657 	mov	dph,(_tokenizer_next_t_65536_24 + 1)
+      000214 85*02 F0         [24]  658 	mov	b,(_tokenizer_next_t_65536_24 + 2)
+      000217 12r00r00         [24]  659 	lcall	__gptrget
+      00021A FD               [12]  660 	mov	r5,a
+      00021B A3               [24]  661 	inc	dptr
+      00021C 12r00r00         [24]  662 	lcall	__gptrget
+      00021F FE               [12]  663 	mov	r6,a
+      000220 A3               [24]  664 	inc	dptr
+      000221 12r00r00         [24]  665 	lcall	__gptrget
+      000224 FF               [12]  666 	mov	r7,a
+      000225 0D               [12]  667 	inc	r5
+      000226 BD 00 01         [24]  668 	cjne	r5,#0x00,00151$
+      000229 0E               [12]  669 	inc	r6
+      00022A                        670 00151$:
+      00022A 85*00 82         [24]  671 	mov	dpl,_tokenizer_next_t_65536_24
+      00022D 85*01 83         [24]  672 	mov	dph,(_tokenizer_next_t_65536_24 + 1)
+      000230 85*02 F0         [24]  673 	mov	b,(_tokenizer_next_t_65536_24 + 2)
+      000233 ED               [12]  674 	mov	a,r5
+      000234 12r00r00         [24]  675 	lcall	__gptrput
+      000237 A3               [24]  676 	inc	dptr
+      000238 EE               [12]  677 	mov	a,r6
+      000239 12r00r00         [24]  678 	lcall	__gptrput
+      00023C A3               [24]  679 	inc	dptr
+      00023D EF               [12]  680 	mov	a,r7
+      00023E 12r00r00         [24]  681 	lcall	__gptrput
+                                    682 ;	firmware.c:128: continue;
+      000241 80 A2            [24]  683 	sjmp	00113$
+      000243                        684 00109$:
+                                    685 ;	firmware.c:131: t->replaced = *t->ptr;
+      000243 85*00 82         [24]  686 	mov	dpl,_tokenizer_next_t_65536_24
+      000246 85*01 83         [24]  687 	mov	dph,(_tokenizer_next_t_65536_24 + 1)
+      000249 85*02 F0         [24]  688 	mov	b,(_tokenizer_next_t_65536_24 + 2)
+      00024C 12r00r00         [24]  689 	lcall	__gptrget
+      00024F FD               [12]  690 	mov	r5,a
+      000250 A3               [24]  691 	inc	dptr
+      000251 12r00r00         [24]  692 	lcall	__gptrget
+      000254 FE               [12]  693 	mov	r6,a
+      000255 A3               [24]  694 	inc	dptr
+      000256 12r00r00         [24]  695 	lcall	__gptrget
+      000259 FF               [12]  696 	mov	r7,a
+      00025A 8D 82            [24]  697 	mov	dpl,r5
+      00025C 8E 83            [24]  698 	mov	dph,r6
+      00025E 8F F0            [24]  699 	mov	b,r7
+      000260 12r00r00         [24]  700 	lcall	__gptrget
+      000263 FD               [12]  701 	mov	r5,a
+      000264 7F 00            [12]  702 	mov	r7,#0x00
+      000266 8A 82            [24]  703 	mov	dpl,r2
+      000268 8B 83            [24]  704 	mov	dph,r3
+      00026A 8C F0            [24]  705 	mov	b,r4
+      00026C ED               [12]  706 	mov	a,r5
+      00026D 12r00r00         [24]  707 	lcall	__gptrput
+      000270 A3               [24]  708 	inc	dptr
+      000271 EF               [12]  709 	mov	a,r7
+      000272 12r00r00         [24]  710 	lcall	__gptrput
+                                    711 ;	firmware.c:132: *t->ptr = '\0';
+      000275 85*00 82         [24]  712 	mov	dpl,_tokenizer_next_t_65536_24
+      000278 85*01 83         [24]  713 	mov	dph,(_tokenizer_next_t_65536_24 + 1)
+      00027B 85*02 F0         [24]  714 	mov	b,(_tokenizer_next_t_65536_24 + 2)
+      00027E 12r00r00         [24]  715 	lcall	__gptrget
+      000281 FD               [12]  716 	mov	r5,a
+      000282 A3               [24]  717 	inc	dptr
+      000283 12r00r00         [24]  718 	lcall	__gptrget
+      000286 FE               [12]  719 	mov	r6,a
+      000287 A3               [24]  720 	inc	dptr
+      000288 12r00r00         [24]  721 	lcall	__gptrget
+      00028B FF               [12]  722 	mov	r7,a
+      00028C 8D 82            [24]  723 	mov	dpl,r5
+      00028E 8E 83            [24]  724 	mov	dph,r6
+      000290 8F F0            [24]  725 	mov	b,r7
+      000292 E4               [12]  726 	clr	a
+      000293 12r00r00         [24]  727 	lcall	__gptrput
+                                    728 ;	firmware.c:133: return token_start;
+      000296 85*03 82         [24]  729 	mov	dpl,_tokenizer_next_token_start_65537_29
+      000299 85*04 83         [24]  730 	mov	dph,(_tokenizer_next_token_start_65537_29 + 1)
+      00029C 85*05 F0         [24]  731 	mov	b,(_tokenizer_next_token_start_65537_29 + 2)
+                                    732 ;	firmware.c:135: }
+      00029F 22               [24]  733 	ret
+                                    734 ;------------------------------------------------------------
+                                    735 ;Allocation info for local variables in function 'uint8_to_str'
+                                    736 ;------------------------------------------------------------
+                                    737 ;v                         Allocated with name '_uint8_to_str_PARM_2'
+                                    738 ;buf                       Allocated to registers r5 r6 r7 
+                                    739 ;sloc0                     Allocated with name '_uint8_to_str_sloc0_1_0'
+                                    740 ;------------------------------------------------------------
+                                    741 ;	firmware.c:138: void uint8_to_str(char *buf, uint8_t v) {
+                                    742 ;	-----------------------------------------
+                                    743 ;	 function uint8_to_str
+                                    744 ;	-----------------------------------------
+      0002A0                        745 _uint8_to_str:
+      0002A0 AD 82            [24]  746 	mov	r5,dpl
+      0002A2 AE 83            [24]  747 	mov	r6,dph
+      0002A4 AF F0            [24]  748 	mov	r7,b
+                                    749 ;	firmware.c:139: *buf++=table[(v&0xf0)>>4];
+      0002A6 85*00*01         [24]  750 	mov	_uint8_to_str_sloc0_1_0,_uint8_to_str_PARM_2
+      0002A9 75*02 00         [24]  751 	mov	(_uint8_to_str_sloc0_1_0 + 1),#0x00
+      0002AC 74 F0            [12]  752 	mov	a,#0xf0
+      0002AE 55*01            [12]  753 	anl	a,_uint8_to_str_sloc0_1_0
+      0002B0 FA               [12]  754 	mov	r2,a
+      0002B1 E4               [12]  755 	clr	a
+      0002B2 CA               [12]  756 	xch	a,r2
+      0002B3 C4               [12]  757 	swap	a
+      0002B4 54 0F            [12]  758 	anl	a,#0x0f
+      0002B6 6A               [12]  759 	xrl	a,r2
+      0002B7 CA               [12]  760 	xch	a,r2
+      0002B8 54 0F            [12]  761 	anl	a,#0x0f
+      0002BA CA               [12]  762 	xch	a,r2
+      0002BB 6A               [12]  763 	xrl	a,r2
+      0002BC CA               [12]  764 	xch	a,r2
+      0002BD 30 E3 02         [24]  765 	jnb	acc.3,00103$
+      0002C0 44 F0            [12]  766 	orl	a,#0xf0
+      0002C2                        767 00103$:
+      0002C2 EA               [12]  768 	mov	a,r2
+      0002C3 24r09            [12]  769 	add	a,#_table
+      0002C5 F9               [12]  770 	mov	r1,a
+      0002C6 87 04            [24]  771 	mov	ar4,@r1
+      0002C8 8D 82            [24]  772 	mov	dpl,r5
+      0002CA 8E 83            [24]  773 	mov	dph,r6
+      0002CC 8F F0            [24]  774 	mov	b,r7
+      0002CE EC               [12]  775 	mov	a,r4
+      0002CF 12r00r00         [24]  776 	lcall	__gptrput
+      0002D2 0D               [12]  777 	inc	r5
+      0002D3 BD 00 01         [24]  778 	cjne	r5,#0x00,00104$
+      0002D6 0E               [12]  779 	inc	r6
+      0002D7                        780 00104$:
+                                    781 ;	firmware.c:140: *buf++=table[v&0x0f];
+      0002D7 74 0F            [12]  782 	mov	a,#0x0f
+      0002D9 55*01            [12]  783 	anl	a,_uint8_to_str_sloc0_1_0
+      0002DB 24r09            [12]  784 	add	a,#_table
+      0002DD F9               [12]  785 	mov	r1,a
+      0002DE 87 04            [24]  786 	mov	ar4,@r1
+      0002E0 8D 82            [24]  787 	mov	dpl,r5
+      0002E2 8E 83            [24]  788 	mov	dph,r6
+      0002E4 8F F0            [24]  789 	mov	b,r7
+      0002E6 EC               [12]  790 	mov	a,r4
+      0002E7 12r00r00         [24]  791 	lcall	__gptrput
+      0002EA 0D               [12]  792 	inc	r5
+      0002EB BD 00 01         [24]  793 	cjne	r5,#0x00,00105$
+      0002EE 0E               [12]  794 	inc	r6
+      0002EF                        795 00105$:
+                                    796 ;	firmware.c:141: *buf=0;
+      0002EF 8D 82            [24]  797 	mov	dpl,r5
+      0002F1 8E 83            [24]  798 	mov	dph,r6
+      0002F3 8F F0            [24]  799 	mov	b,r7
+      0002F5 E4               [12]  800 	clr	a
+                                    801 ;	firmware.c:142: }
+      0002F6 02r00r00         [24]  802 	ljmp	__gptrput
+                                    803 ;------------------------------------------------------------
+                                    804 ;Allocation info for local variables in function 'str_to_uint8'
+                                    805 ;------------------------------------------------------------
+                                    806 ;s                         Allocated to registers 
+                                    807 ;v                         Allocated to registers r4 
+                                    808 ;digit                     Allocated to registers r3 
+                                    809 ;------------------------------------------------------------
+                                    810 ;	firmware.c:144: uint8_t str_to_uint8(const char *s) {
+                                    811 ;	-----------------------------------------
+                                    812 ;	 function str_to_uint8
+                                    813 ;	-----------------------------------------
+      0002F9                        814 _str_to_uint8:
+      0002F9 AD 82            [24]  815 	mov	r5,dpl
+      0002FB AE 83            [24]  816 	mov	r6,dph
+      0002FD AF F0            [24]  817 	mov	r7,b
+                                    818 ;	firmware.c:145: uint8_t v = 0;
+      0002FF 7C 00            [12]  819 	mov	r4,#0x00
+                                    820 ;	firmware.c:146: while (*s) {
+      000301                        821 00101$:
+      000301 8D 82            [24]  822 	mov	dpl,r5
+      000303 8E 83            [24]  823 	mov	dph,r6
+      000305 8F F0            [24]  824 	mov	b,r7
+      000307 12r00r00         [24]  825 	lcall	__gptrget
+      00030A FB               [12]  826 	mov	r3,a
+      00030B 60 15            [24]  827 	jz	00103$
+                                    828 ;	firmware.c:147: uint8_t digit = *s++ - '0';
+      00030D 0D               [12]  829 	inc	r5
+      00030E BD 00 01         [24]  830 	cjne	r5,#0x00,00116$
+      000311 0E               [12]  831 	inc	r6
+      000312                        832 00116$:
+      000312 EB               [12]  833 	mov	a,r3
+      000313 24 D0            [12]  834 	add	a,#0xd0
+      000315 FB               [12]  835 	mov	r3,a
+                                    836 ;	firmware.c:148: v = v * 10 + digit;
+      000316 8C 02            [24]  837 	mov	ar2,r4
+      000318 EA               [12]  838 	mov	a,r2
+      000319 75 F0 0A         [24]  839 	mov	b,#0x0a
+      00031C A4               [48]  840 	mul	ab
+      00031D FA               [12]  841 	mov	r2,a
+      00031E 2B               [12]  842 	add	a,r3
+      00031F FC               [12]  843 	mov	r4,a
+      000320 80 DF            [24]  844 	sjmp	00101$
+      000322                        845 00103$:
+                                    846 ;	firmware.c:150: return v;
+      000322 8C 82            [24]  847 	mov	dpl,r4
+                                    848 ;	firmware.c:151: }
+      000324 22               [24]  849 	ret
+                                    850 ;------------------------------------------------------------
+                                    851 ;Allocation info for local variables in function 'port_to_int8'
+                                    852 ;------------------------------------------------------------
+                                    853 ;port                      Allocated to registers r5 r6 r7 
+                                    854 ;------------------------------------------------------------
+                                    855 ;	firmware.c:153: int8_t port_to_int8(char *port) {
+                                    856 ;	-----------------------------------------
+                                    857 ;	 function port_to_int8
+                                    858 ;	-----------------------------------------
+      000325                        859 _port_to_int8:
+      000325 AD 82            [24]  860 	mov	r5,dpl
+      000327 AE 83            [24]  861 	mov	r6,dph
+      000329 AF F0            [24]  862 	mov	r7,b
+                                    863 ;	firmware.c:154: if (port[1]!=0&&port[1]!=' ') {
+      00032B 74 01            [12]  864 	mov	a,#0x01
+      00032D 2D               [12]  865 	add	a,r5
+      00032E FA               [12]  866 	mov	r2,a
+      00032F E4               [12]  867 	clr	a
+      000330 3E               [12]  868 	addc	a,r6
+      000331 FB               [12]  869 	mov	r3,a
+      000332 8F 04            [24]  870 	mov	ar4,r7
+      000334 8A 82            [24]  871 	mov	dpl,r2
+      000336 8B 83            [24]  872 	mov	dph,r3
+      000338 8C F0            [24]  873 	mov	b,r4
+      00033A 12r00r00         [24]  874 	lcall	__gptrget
+      00033D FC               [12]  875 	mov	r4,a
+      00033E 60 09            [24]  876 	jz	00102$
+      000340 BC 20 02         [24]  877 	cjne	r4,#0x20,00115$
+      000343 80 04            [24]  878 	sjmp	00102$
+      000345                        879 00115$:
+                                    880 ;	firmware.c:156: return -1;
+      000345 75 82 FF         [24]  881 	mov	dpl,#0xff
+      000348 22               [24]  882 	ret
+      000349                        883 00102$:
+                                    884 ;	firmware.c:158: return (int8_t)str_to_uint8(port);
+      000349 8D 82            [24]  885 	mov	dpl,r5
+      00034B 8E 83            [24]  886 	mov	dph,r6
+      00034D 8F F0            [24]  887 	mov	b,r7
+                                    888 ;	firmware.c:159: }
+      00034F 02r02rF9         [24]  889 	ljmp	_str_to_uint8
+                                    890 ;------------------------------------------------------------
+                                    891 ;Allocation info for local variables in function 'main'
+                                    892 ;------------------------------------------------------------
+                                    893 ;i                         Allocated to registers r6 r7 
+                                    894 ;ch                        Allocated to registers r3 
+                                    895 ;t                         Allocated with name '_main_t_131075_50'
+                                    896 ;p                         Allocated to registers r3 r5 r6 
+                                    897 ;write                     Allocated to registers r4 
+                                    898 ;port                      Allocated to registers r7 
+                                    899 ;req_len                   Allocated to registers r6 
+                                    900 ;i                         Allocated to registers r5 
+                                    901 ;ret                       Allocated to registers r5 
+                                    902 ;ret                       Allocated to registers r7 
+                                    903 ;i                         Allocated to registers r7 
+                                    904 ;num                       Allocated with name '_main_num_327687_70'
+                                    905 ;cmd                       Allocated with name '_main_cmd_65537_43'
+                                    906 ;i2c_buf                   Allocated with name '_main_i2c_buf_65537_43'
+                                    907 ;i2c_buf2                  Allocated with name '_main_i2c_buf2_65537_43'
+                                    908 ;------------------------------------------------------------
+                                    909 ;	firmware.c:163: int main(void) {
+                                    910 ;	-----------------------------------------
+                                    911 ;	 function main
+                                    912 ;	-----------------------------------------
+      000352                        913 _main:
+                                    914 ;	firmware.c:164: serial_print("INIT OK\n");
+      000352 90r00rA5         [24]  915 	mov	dptr,#___str_5
+      000355 75 F0 80         [24]  916 	mov	b,#0x80
+      000358 12r00r0D         [24]  917 	lcall	_serial_print
+                                    918 ;	firmware.c:169: while (true) {
+      00035B                        919 00137$:
+                                    920 ;	firmware.c:170: serial_print("> ");
+      00035B 90r00rAE         [24]  921 	mov	dptr,#___str_6
+      00035E 75 F0 80         [24]  922 	mov	b,#0x80
+      000361 12r00r0D         [24]  923 	lcall	_serial_print
+                                    924 ;	firmware.c:173: for (i = 0; i < CMD_BUF_SZ; i++) {
+      000364 7E 00            [12]  925 	mov	r6,#0x00
+      000366 7F 00            [12]  926 	mov	r7,#0x00
+      000368 7C 00            [12]  927 	mov	r4,#0x00
+      00036A 7D 00            [12]  928 	mov	r5,#0x00
+      00036C                        929 00139$:
+                                    930 ;	firmware.c:174: char ch = serial_read_char();
+      00036C C0 07            [24]  931 	push	ar7
+      00036E C0 06            [24]  932 	push	ar6
+      000370 C0 05            [24]  933 	push	ar5
+      000372 C0 04            [24]  934 	push	ar4
+      000374 12r00rC2         [24]  935 	lcall	_serial_read_char
+      000377 AB 82            [24]  936 	mov	r3,dpl
+      000379 D0 04            [24]  937 	pop	ar4
+      00037B D0 05            [24]  938 	pop	ar5
+      00037D D0 06            [24]  939 	pop	ar6
+      00037F D0 07            [24]  940 	pop	ar7
+                                    941 ;	firmware.c:175: if (ch == '\n') {
+      000381 BB 0A 0E         [24]  942 	cjne	r3,#0x0a,00102$
+                                    943 ;	firmware.c:176: cmd[i] = '\0';
+      000384 EE               [12]  944 	mov	a,r6
+      000385 24r00            [12]  945 	add	a,#_main_cmd_65537_43
+      000387 F5 82            [12]  946 	mov	dpl,a
+      000389 EF               [12]  947 	mov	a,r7
+      00038A 34s00            [12]  948 	addc	a,#(_main_cmd_65537_43 >> 8)
+      00038C F5 83            [12]  949 	mov	dph,a
+      00038E E4               [12]  950 	clr	a
+      00038F F0               [24]  951 	movx	@dptr,a
+                                    952 ;	firmware.c:177: break;
+      000390 80 20            [24]  953 	sjmp	00103$
+      000392                        954 00102$:
+                                    955 ;	firmware.c:179: cmd[i] = ch;
+      000392 EC               [12]  956 	mov	a,r4
+      000393 24r00            [12]  957 	add	a,#_main_cmd_65537_43
+      000395 F5 82            [12]  958 	mov	dpl,a
+      000397 ED               [12]  959 	mov	a,r5
+      000398 34s00            [12]  960 	addc	a,#(_main_cmd_65537_43 >> 8)
+      00039A F5 83            [12]  961 	mov	dph,a
+      00039C EB               [12]  962 	mov	a,r3
+      00039D F0               [24]  963 	movx	@dptr,a
+                                    964 ;	firmware.c:173: for (i = 0; i < CMD_BUF_SZ; i++) {
+      00039E 0C               [12]  965 	inc	r4
+      00039F BC 00 01         [24]  966 	cjne	r4,#0x00,00253$
+      0003A2 0D               [12]  967 	inc	r5
+      0003A3                        968 00253$:
+      0003A3 8C 06            [24]  969 	mov	ar6,r4
+      0003A5 8D 07            [24]  970 	mov	ar7,r5
+      0003A7 C3               [12]  971 	clr	c
+      0003A8 EC               [12]  972 	mov	a,r4
+      0003A9 94 80            [12]  973 	subb	a,#0x80
+      0003AB ED               [12]  974 	mov	a,r5
+      0003AC 64 80            [12]  975 	xrl	a,#0x80
+      0003AE 94 81            [12]  976 	subb	a,#0x81
+      0003B0 40 BA            [24]  977 	jc	00139$
+      0003B2                        978 00103$:
+                                    979 ;	firmware.c:182: if (i == CMD_BUF_SZ) {
+      0003B2 BE 80 0E         [24]  980 	cjne	r6,#0x80,00105$
+      0003B5 BF 01 0B         [24]  981 	cjne	r7,#0x01,00105$
+                                    982 ;	firmware.c:183: serial_print("-err: command too long, rejected\n");
+      0003B8 90r00rB1         [24]  983 	mov	dptr,#___str_7
+      0003BB 75 F0 80         [24]  984 	mov	b,#0x80
+      0003BE 12r00r0D         [24]  985 	lcall	_serial_print
+                                    986 ;	firmware.c:184: continue;
+      0003C1 80 98            [24]  987 	sjmp	00137$
+      0003C3                        988 00105$:
+                                    989 ;	firmware.c:188: tokenizer_init(&t, cmd);
+      0003C3 75*00r00         [24]  990 	mov	_tokenizer_init_PARM_2,#_main_cmd_65537_43
+      0003C6 75*01s00         [24]  991 	mov	(_tokenizer_init_PARM_2 + 1),#(_main_cmd_65537_43 >> 8)
+      0003C9 75*02 00         [24]  992 	mov	(_tokenizer_init_PARM_2 + 2),#0x00
+      0003CC 90r00r1D         [24]  993 	mov	dptr,#_main_t_131075_50
+      0003CF 75 F0 40         [24]  994 	mov	b,#0x40
+      0003D2 12r00rCF         [24]  995 	lcall	_tokenizer_init
+                                    996 ;	firmware.c:190: char *p = tokenizer_next(&t);
+      0003D5 90r00r1D         [24]  997 	mov	dptr,#_main_t_131075_50
+      0003D8 75 F0 40         [24]  998 	mov	b,#0x40
+      0003DB 12r00rFE         [24]  999 	lcall	_tokenizer_next
+      0003DE AD 82            [24] 1000 	mov	r5,dpl
+      0003E0 AE 83            [24] 1001 	mov	r6,dph
+      0003E2 AF F0            [24] 1002 	mov	r7,b
+                                   1003 ;	firmware.c:191: if (p == NULL) {
+      0003E4 ED               [12] 1004 	mov	a,r5
+      0003E5 4E               [12] 1005 	orl	a,r6
+      0003E6 70 0C            [24] 1006 	jnz	00107$
+                                   1007 ;	firmware.c:192: serial_print("-err: command format incorrect\n");
+      0003E8 90r00rD3         [24] 1008 	mov	dptr,#___str_8
+      0003EB 75 F0 80         [24] 1009 	mov	b,#0x80
+      0003EE 12r00r0D         [24] 1010 	lcall	_serial_print
+                                   1011 ;	firmware.c:193: continue;
+      0003F1 02r03r5B         [24] 1012 	ljmp	00137$
+      0003F4                       1013 00107$:
+                                   1014 ;	firmware.c:197: if (*p == 'r') {
+      0003F4 8D 82            [24] 1015 	mov	dpl,r5
+      0003F6 8E 83            [24] 1016 	mov	dph,r6
+      0003F8 8F F0            [24] 1017 	mov	b,r7
+      0003FA 12r00r00         [24] 1018 	lcall	__gptrget
+      0003FD FC               [12] 1019 	mov	r4,a
+      0003FE BC 72 04         [24] 1020 	cjne	r4,#0x72,00112$
+                                   1021 ;	firmware.c:198: write = false;
+      000401 7C 00            [12] 1022 	mov	r4,#0x00
+      000403 80 1D            [24] 1023 	sjmp	00113$
+      000405                       1024 00112$:
+                                   1025 ;	firmware.c:199: } else if (*p == 'w') {
+      000405 8D 82            [24] 1026 	mov	dpl,r5
+      000407 8E 83            [24] 1027 	mov	dph,r6
+      000409 8F F0            [24] 1028 	mov	b,r7
+      00040B 12r00r00         [24] 1029 	lcall	__gptrget
+      00040E FD               [12] 1030 	mov	r5,a
+      00040F BD 77 04         [24] 1031 	cjne	r5,#0x77,00109$
+                                   1032 ;	firmware.c:200: write = true;
+      000412 7C 01            [12] 1033 	mov	r4,#0x01
+      000414 80 0C            [24] 1034 	sjmp	00113$
+      000416                       1035 00109$:
+                                   1036 ;	firmware.c:202: serial_print("-err: unknown command\n");
+      000416 90r00rF3         [24] 1037 	mov	dptr,#___str_9
+      000419 75 F0 80         [24] 1038 	mov	b,#0x80
+      00041C 12r00r0D         [24] 1039 	lcall	_serial_print
+                                   1040 ;	firmware.c:203: continue;
+      00041F 02r03r5B         [24] 1041 	ljmp	00137$
+      000422                       1042 00113$:
+                                   1043 ;	firmware.c:206: p = tokenizer_next(&t);
+      000422 90r00r1D         [24] 1044 	mov	dptr,#_main_t_131075_50
+      000425 75 F0 40         [24] 1045 	mov	b,#0x40
+      000428 C0 04            [24] 1046 	push	ar4
+      00042A 12r00rFE         [24] 1047 	lcall	_tokenizer_next
+      00042D AD 82            [24] 1048 	mov	r5,dpl
+      00042F AE 83            [24] 1049 	mov	r6,dph
+      000431 AF F0            [24] 1050 	mov	r7,b
+      000433 D0 04            [24] 1051 	pop	ar4
+                                   1052 ;	firmware.c:207: if (p == NULL) {
+      000435 ED               [12] 1053 	mov	a,r5
+      000436 4E               [12] 1054 	orl	a,r6
+      000437 70 0C            [24] 1055 	jnz	00115$
+                                   1056 ;	firmware.c:208: serial_print("-err: command format incorrect\n");
+      000439 90r00rD3         [24] 1057 	mov	dptr,#___str_8
+      00043C 75 F0 80         [24] 1058 	mov	b,#0x80
+      00043F 12r00r0D         [24] 1059 	lcall	_serial_print
+                                   1060 ;	firmware.c:209: continue;
+      000442 02r03r5B         [24] 1061 	ljmp	00137$
+      000445                       1062 00115$:
+                                   1063 ;	firmware.c:212: int8_t port = port_to_int8(p);
+      000445 8D 82            [24] 1064 	mov	dpl,r5
+      000447 8E 83            [24] 1065 	mov	dph,r6
+      000449 8F F0            [24] 1066 	mov	b,r7
+      00044B C0 04            [24] 1067 	push	ar4
+      00044D 12r03r25         [24] 1068 	lcall	_port_to_int8
+      000450 AF 82            [24] 1069 	mov	r7,dpl
+      000452 D0 04            [24] 1070 	pop	ar4
+                                   1071 ;	firmware.c:213: if (port == -1) {
+      000454 BF FF 0C         [24] 1072 	cjne	r7,#0xff,00117$
+                                   1073 ;	firmware.c:214: serial_print("-err: port invalid or not allowed\n");
+      000457 90r01r0A         [24] 1074 	mov	dptr,#___str_10
+      00045A 75 F0 80         [24] 1075 	mov	b,#0x80
+      00045D 12r00r0D         [24] 1076 	lcall	_serial_print
+                                   1077 ;	firmware.c:215: continue;
+      000460 02r03r5B         [24] 1078 	ljmp	00137$
+      000463                       1079 00117$:
+                                   1080 ;	firmware.c:218: p = tokenizer_next(&t);
+      000463 90r00r1D         [24] 1081 	mov	dptr,#_main_t_131075_50
+      000466 75 F0 40         [24] 1082 	mov	b,#0x40
+      000469 C0 07            [24] 1083 	push	ar7
+      00046B C0 04            [24] 1084 	push	ar4
+      00046D 12r00rFE         [24] 1085 	lcall	_tokenizer_next
+      000470 AB 82            [24] 1086 	mov	r3,dpl
+      000472 AD 83            [24] 1087 	mov	r5,dph
+      000474 AE F0            [24] 1088 	mov	r6,b
+      000476 D0 04            [24] 1089 	pop	ar4
+      000478 D0 07            [24] 1090 	pop	ar7
+                                   1091 ;	firmware.c:219: if (p == NULL) {
+      00047A EB               [12] 1092 	mov	a,r3
+      00047B 4D               [12] 1093 	orl	a,r5
+      00047C 70 0C            [24] 1094 	jnz	00119$
+                                   1095 ;	firmware.c:220: serial_print("-err: command format incorrect\n");
+      00047E 90r00rD3         [24] 1096 	mov	dptr,#___str_8
+      000481 75 F0 80         [24] 1097 	mov	b,#0x80
+      000484 12r00r0D         [24] 1098 	lcall	_serial_print
+                                   1099 ;	firmware.c:221: continue;
+      000487 02r03r5B         [24] 1100 	ljmp	00137$
+      00048A                       1101 00119$:
+                                   1102 ;	firmware.c:224: uint8_t req_len = str_to_uint8(p);
+      00048A 8B 82            [24] 1103 	mov	dpl,r3
+      00048C 8D 83            [24] 1104 	mov	dph,r5
+      00048E 8E F0            [24] 1105 	mov	b,r6
+      000490 C0 07            [24] 1106 	push	ar7
+      000492 C0 04            [24] 1107 	push	ar4
+      000494 12r02rF9         [24] 1108 	lcall	_str_to_uint8
+      000497 AE 82            [24] 1109 	mov	r6,dpl
+      000499 D0 04            [24] 1110 	pop	ar4
+      00049B D0 07            [24] 1111 	pop	ar7
+                                   1112 ;	firmware.c:225: if (req_len == 0 || req_len > I2C_BUF_SZ) {
+      00049D EE               [12] 1113 	mov	a,r6
+      00049E 60 05            [24] 1114 	jz	00120$
+      0004A0 EE               [12] 1115 	mov	a,r6
+      0004A1 24 7F            [12] 1116 	add	a,#0xff - 0x80
+      0004A3 50 0C            [24] 1117 	jnc	00121$
+      0004A5                       1118 00120$:
+                                   1119 ;	firmware.c:226: serial_print("-err: I2C request length incorrect\n");
+      0004A5 90r01r2D         [24] 1120 	mov	dptr,#___str_11
+      0004A8 75 F0 80         [24] 1121 	mov	b,#0x80
+      0004AB 12r00r0D         [24] 1122 	lcall	_serial_print
+                                   1123 ;	firmware.c:227: continue;
+      0004AE 02r03r5B         [24] 1124 	ljmp	00137$
+      0004B1                       1125 00121$:
+                                   1126 ;	firmware.c:230: if (write) {
+      0004B1 EC               [12] 1127 	mov	a,r4
+      0004B2 70 03            [24] 1128 	jnz	00268$
+      0004B4 02r05rB6         [24] 1129 	ljmp	00134$
+      0004B7                       1130 00268$:
+                                   1131 ;	firmware.c:231: for (uint8_t i = 0; i < req_len; i++) {
+      0004B7 7D 00            [12] 1132 	mov	r5,#0x00
+      0004B9                       1133 00142$:
+      0004B9 C3               [12] 1134 	clr	c
+      0004BA ED               [12] 1135 	mov	a,r5
+      0004BB 9E               [12] 1136 	subb	a,r6
+      0004BC 50 6E            [24] 1137 	jnc	00125$
+                                   1138 ;	firmware.c:232: p = tokenizer_next(&t);
+      0004BE 90r00r1D         [24] 1139 	mov	dptr,#_main_t_131075_50
+      0004C1 75 F0 40         [24] 1140 	mov	b,#0x40
+      0004C4 C0 07            [24] 1141 	push	ar7
+      0004C6 C0 06            [24] 1142 	push	ar6
+      0004C8 C0 05            [24] 1143 	push	ar5
+      0004CA 12r00rFE         [24] 1144 	lcall	_tokenizer_next
+      0004CD AA 82            [24] 1145 	mov	r2,dpl
+      0004CF AB 83            [24] 1146 	mov	r3,dph
+      0004D1 AC F0            [24] 1147 	mov	r4,b
+      0004D3 D0 05            [24] 1148 	pop	ar5
+      0004D5 D0 06            [24] 1149 	pop	ar6
+      0004D7 D0 07            [24] 1150 	pop	ar7
+                                   1151 ;	firmware.c:233: if (p == NULL) {
+      0004D9 EA               [12] 1152 	mov	a,r2
+      0004DA 4B               [12] 1153 	orl	a,r3
+      0004DB 60 4F            [24] 1154 	jz	00125$
+                                   1155 ;	firmware.c:237: i2c_buf[i] = str_to_uint8(p);
+      0004DD ED               [12] 1156 	mov	a,r5
+      0004DE 24r80            [12] 1157 	add	a,#_main_i2c_buf_65537_43
+      0004E0 F8               [12] 1158 	mov	r0,a
+      0004E1 E4               [12] 1159 	clr	a
+      0004E2 34s01            [12] 1160 	addc	a,#(_main_i2c_buf_65537_43 >> 8)
+      0004E4 F9               [12] 1161 	mov	r1,a
+      0004E5 8A 82            [24] 1162 	mov	dpl,r2
+      0004E7 8B 83            [24] 1163 	mov	dph,r3
+      0004E9 8C F0            [24] 1164 	mov	b,r4
+      0004EB C0 07            [24] 1165 	push	ar7
+      0004ED C0 06            [24] 1166 	push	ar6
+      0004EF C0 05            [24] 1167 	push	ar5
+      0004F1 C0 01            [24] 1168 	push	ar1
+      0004F3 C0 00            [24] 1169 	push	ar0
+      0004F5 12r02rF9         [24] 1170 	lcall	_str_to_uint8
+      0004F8 AC 82            [24] 1171 	mov	r4,dpl
+      0004FA D0 00            [24] 1172 	pop	ar0
+      0004FC D0 01            [24] 1173 	pop	ar1
+      0004FE D0 05            [24] 1174 	pop	ar5
+      000500 88 82            [24] 1175 	mov	dpl,r0
+      000502 89 83            [24] 1176 	mov	dph,r1
+      000504 EC               [12] 1177 	mov	a,r4
+      000505 F0               [24] 1178 	movx	@dptr,a
+                                   1179 ;	firmware.c:238: i2c_buf2[i] = rand();
+      000506 ED               [12] 1180 	mov	a,r5
+      000507 24r00            [12] 1181 	add	a,#_main_i2c_buf2_65537_43
+      000509 FB               [12] 1182 	mov	r3,a
+      00050A E4               [12] 1183 	clr	a
+      00050B 34s02            [12] 1184 	addc	a,#(_main_i2c_buf2_65537_43 >> 8)
+      00050D FC               [12] 1185 	mov	r4,a
+      00050E C0 05            [24] 1186 	push	ar5
+      000510 C0 04            [24] 1187 	push	ar4
+      000512 C0 03            [24] 1188 	push	ar3
+      000514 12r00r00         [24] 1189 	lcall	_rand
+      000517 AA 82            [24] 1190 	mov	r2,dpl
+      000519 D0 03            [24] 1191 	pop	ar3
+      00051B D0 04            [24] 1192 	pop	ar4
+      00051D D0 05            [24] 1193 	pop	ar5
+      00051F D0 06            [24] 1194 	pop	ar6
+      000521 D0 07            [24] 1195 	pop	ar7
+      000523 8B 82            [24] 1196 	mov	dpl,r3
+      000525 8C 83            [24] 1197 	mov	dph,r4
+      000527 EA               [12] 1198 	mov	a,r2
+      000528 F0               [24] 1199 	movx	@dptr,a
+                                   1200 ;	firmware.c:231: for (uint8_t i = 0; i < req_len; i++) {
+      000529 0D               [12] 1201 	inc	r5
+      00052A 80 8D            [24] 1202 	sjmp	00142$
+      00052C                       1203 00125$:
+                                   1204 ;	firmware.c:241: int8_t ret = i2c_write(port, req_len, i2c_buf);
+      00052C 8E*00            [24] 1205 	mov	_i2c_write_PARM_2,r6
+      00052E 75*01r80         [24] 1206 	mov	_i2c_write_PARM_3,#_main_i2c_buf_65537_43
+      000531 75*02s01         [24] 1207 	mov	(_i2c_write_PARM_3 + 1),#(_main_i2c_buf_65537_43 >> 8)
+      000534 8F 82            [24] 1208 	mov	dpl,r7
+      000536 C0 07            [24] 1209 	push	ar7
+      000538 C0 06            [24] 1210 	push	ar6
+      00053A 12r00r35         [24] 1211 	lcall	_i2c_write
+      00053D AD 82            [24] 1212 	mov	r5,dpl
+      00053F D0 06            [24] 1213 	pop	ar6
+      000541 D0 07            [24] 1214 	pop	ar7
+                                   1215 ;	firmware.c:242: i2c_write((port+1)%10,req_len,i2c_buf2);
+      000543 EF               [12] 1216 	mov	a,r7
+      000544 FB               [12] 1217 	mov	r3,a
+      000545 33               [12] 1218 	rlc	a
+      000546 95 E0            [12] 1219 	subb	a,acc
+      000548 FC               [12] 1220 	mov	r4,a
+      000549 8B 82            [24] 1221 	mov	dpl,r3
+      00054B 8C 83            [24] 1222 	mov	dph,r4
+      00054D A3               [24] 1223 	inc	dptr
+      00054E 75*00 0A         [24] 1224 	mov	__modsint_PARM_2,#0x0a
+      000551 75*01 00         [24] 1225 	mov	(__modsint_PARM_2 + 1),#0x00
+      000554 C0 06            [24] 1226 	push	ar6
+      000556 C0 05            [24] 1227 	push	ar5
+      000558 C0 04            [24] 1228 	push	ar4
+      00055A C0 03            [24] 1229 	push	ar3
+      00055C 12r00r00         [24] 1230 	lcall	__modsint
+      00055F A9 82            [24] 1231 	mov	r1,dpl
+      000561 D0 03            [24] 1232 	pop	ar3
+      000563 D0 04            [24] 1233 	pop	ar4
+      000565 D0 05            [24] 1234 	pop	ar5
+      000567 D0 06            [24] 1235 	pop	ar6
+      000569 89 82            [24] 1236 	mov	dpl,r1
+      00056B 8E*00            [24] 1237 	mov	_i2c_write_PARM_2,r6
+      00056D 75*01r00         [24] 1238 	mov	_i2c_write_PARM_3,#_main_i2c_buf2_65537_43
+      000570 75*02s02         [24] 1239 	mov	(_i2c_write_PARM_3 + 1),#(_main_i2c_buf2_65537_43 >> 8)
+      000573 C0 06            [24] 1240 	push	ar6
+      000575 C0 05            [24] 1241 	push	ar5
+      000577 C0 04            [24] 1242 	push	ar4
+      000579 C0 03            [24] 1243 	push	ar3
+      00057B 12r00r35         [24] 1244 	lcall	_i2c_write
+      00057E D0 03            [24] 1245 	pop	ar3
+      000580 D0 04            [24] 1246 	pop	ar4
+                                   1247 ;	firmware.c:243: i2c_write((port+9)%10,req_len,i2c_buf2);
+      000582 74 09            [12] 1248 	mov	a,#0x09
+      000584 2B               [12] 1249 	add	a,r3
+      000585 F5 82            [12] 1250 	mov	dpl,a
+      000587 E4               [12] 1251 	clr	a
+      000588 3C               [12] 1252 	addc	a,r4
+      000589 F5 83            [12] 1253 	mov	dph,a
+      00058B 75*00 0A         [24] 1254 	mov	__modsint_PARM_2,#0x0a
+      00058E 75*01 00         [24] 1255 	mov	(__modsint_PARM_2 + 1),#0x00
+      000591 12r00r00         [24] 1256 	lcall	__modsint
+      000594 AB 82            [24] 1257 	mov	r3,dpl
+      000596 D0 05            [24] 1258 	pop	ar5
+      000598 D0 06            [24] 1259 	pop	ar6
+      00059A 75*01r00         [24] 1260 	mov	_i2c_write_PARM_3,#_main_i2c_buf2_65537_43
+      00059D 75*02s02         [24] 1261 	mov	(_i2c_write_PARM_3 + 1),#(_main_i2c_buf2_65537_43 >> 8)
+      0005A0 8E*00            [24] 1262 	mov	_i2c_write_PARM_2,r6
+      0005A2 8B 82            [24] 1263 	mov	dpl,r3
+      0005A4 C0 05            [24] 1264 	push	ar5
+      0005A6 12r00r35         [24] 1265 	lcall	_i2c_write
+      0005A9 D0 05            [24] 1266 	pop	ar5
+                                   1267 ;	firmware.c:244: serial_print(i2c_status_to_error(ret));
+      0005AB 8D 82            [24] 1268 	mov	dpl,r5
+      0005AD 12r00r89         [24] 1269 	lcall	_i2c_status_to_error
+      0005B0 12r00r0D         [24] 1270 	lcall	_serial_print
+      0005B3 02r03r5B         [24] 1271 	ljmp	00137$
+      0005B6                       1272 00134$:
+                                   1273 ;	firmware.c:246: int8_t ret = i2c_read(port, req_len, i2c_buf);
+      0005B6 75*01r80         [24] 1274 	mov	_i2c_read_PARM_3,#_main_i2c_buf_65537_43
+      0005B9 75*02s01         [24] 1275 	mov	(_i2c_read_PARM_3 + 1),#(_main_i2c_buf_65537_43 >> 8)
+      0005BC 8E*00            [24] 1276 	mov	_i2c_read_PARM_2,r6
+      0005BE 8F 82            [24] 1277 	mov	dpl,r7
+      0005C0 C0 06            [24] 1278 	push	ar6
+      0005C2 12r00r5F         [24] 1279 	lcall	_i2c_read
+      0005C5 AF 82            [24] 1280 	mov	r7,dpl
+      0005C7 D0 06            [24] 1281 	pop	ar6
+                                   1282 ;	firmware.c:247: serial_print(i2c_status_to_error(ret));
+      0005C9 8F 82            [24] 1283 	mov	dpl,r7
+      0005CB C0 07            [24] 1284 	push	ar7
+      0005CD C0 06            [24] 1285 	push	ar6
+      0005CF 12r00r89         [24] 1286 	lcall	_i2c_status_to_error
+      0005D2 12r00r0D         [24] 1287 	lcall	_serial_print
+      0005D5 D0 06            [24] 1288 	pop	ar6
+      0005D7 D0 07            [24] 1289 	pop	ar7
+                                   1290 ;	firmware.c:248: if(ret!=2)
+      0005D9 BF 02 03         [24] 1291 	cjne	r7,#0x02,00271$
+      0005DC 02r06r75         [24] 1292 	ljmp	00132$
+      0005DF                       1293 00271$:
+                                   1294 ;	firmware.c:249: for (uint8_t i = 0; i < req_len; i++) {
+      0005DF 7F 00            [12] 1295 	mov	r7,#0x00
+      0005E1                       1296 00145$:
+      0005E1 C3               [12] 1297 	clr	c
+      0005E2 EF               [12] 1298 	mov	a,r7
+      0005E3 9E               [12] 1299 	subb	a,r6
+      0005E4 40 03            [24] 1300 	jc	00272$
+      0005E6 02r06r75         [24] 1301 	ljmp	00132$
+      0005E9                       1302 00272$:
+                                   1303 ;	firmware.c:251: uint8_to_str(num, i2c_buf[i]);
+      0005E9 EF               [12] 1304 	mov	a,r7
+      0005EA 24r80            [12] 1305 	add	a,#_main_i2c_buf_65537_43
+      0005EC F5 82            [12] 1306 	mov	dpl,a
+      0005EE E4               [12] 1307 	clr	a
+      0005EF 34s01            [12] 1308 	addc	a,#(_main_i2c_buf_65537_43 >> 8)
+      0005F1 F5 83            [12] 1309 	mov	dph,a
+      0005F3 E0               [24] 1310 	movx	a,@dptr
+      0005F4 F5*00            [12] 1311 	mov	_uint8_to_str_PARM_2,a
+      0005F6 90r00r22         [24] 1312 	mov	dptr,#_main_num_327687_70
+      0005F9 75 F0 40         [24] 1313 	mov	b,#0x40
+      0005FC C0 07            [24] 1314 	push	ar7
+      0005FE C0 06            [24] 1315 	push	ar6
+      000600 12r02rA0         [24] 1316 	lcall	_uint8_to_str
+                                   1317 ;	firmware.c:252: serial_print(num);
+      000603 90r00r22         [24] 1318 	mov	dptr,#_main_num_327687_70
+      000606 75 F0 40         [24] 1319 	mov	b,#0x40
+      000609 12r00r0D         [24] 1320 	lcall	_serial_print
+      00060C D0 06            [24] 1321 	pop	ar6
+      00060E D0 07            [24] 1322 	pop	ar7
+                                   1323 ;	firmware.c:254: if ((i + 1) % 16 == 0 && i +1 != req_len) {
+      000610 8F 04            [24] 1324 	mov	ar4,r7
+      000612 7D 00            [12] 1325 	mov	r5,#0x00
+      000614 8C 82            [24] 1326 	mov	dpl,r4
+      000616 8D 83            [24] 1327 	mov	dph,r5
+      000618 A3               [24] 1328 	inc	dptr
+      000619 75*00 10         [24] 1329 	mov	__modsint_PARM_2,#0x10
+                                   1330 ;	1-genFromRTrack replaced	mov	(__modsint_PARM_2 + 1),#0x00
+      00061C 8D*01            [24] 1331 	mov	(__modsint_PARM_2 + 1),r5
+      00061E C0 07            [24] 1332 	push	ar7
+      000620 C0 06            [24] 1333 	push	ar6
+      000622 C0 05            [24] 1334 	push	ar5
+      000624 C0 04            [24] 1335 	push	ar4
+      000626 12r00r00         [24] 1336 	lcall	__modsint
+      000629 E5 82            [12] 1337 	mov	a,dpl
+      00062B 85 83 F0         [24] 1338 	mov	b,dph
+      00062E D0 04            [24] 1339 	pop	ar4
+      000630 D0 05            [24] 1340 	pop	ar5
+      000632 D0 06            [24] 1341 	pop	ar6
+      000634 D0 07            [24] 1342 	pop	ar7
+      000636 45 F0            [12] 1343 	orl	a,b
+      000638 70 26            [24] 1344 	jnz	00127$
+      00063A 0C               [12] 1345 	inc	r4
+      00063B BC 00 01         [24] 1346 	cjne	r4,#0x00,00274$
+      00063E 0D               [12] 1347 	inc	r5
+      00063F                       1348 00274$:
+      00063F 8E 02            [24] 1349 	mov	ar2,r6
+      000641 7B 00            [12] 1350 	mov	r3,#0x00
+      000643 EC               [12] 1351 	mov	a,r4
+      000644 B5 02 06         [24] 1352 	cjne	a,ar2,00275$
+      000647 ED               [12] 1353 	mov	a,r5
+      000648 B5 03 02         [24] 1354 	cjne	a,ar3,00275$
+      00064B 80 13            [24] 1355 	sjmp	00127$
+      00064D                       1356 00275$:
+                                   1357 ;	firmware.c:255: serial_print("\n");
+      00064D 90r01r51         [24] 1358 	mov	dptr,#___str_12
+      000650 75 F0 80         [24] 1359 	mov	b,#0x80
+      000653 C0 07            [24] 1360 	push	ar7
+      000655 C0 06            [24] 1361 	push	ar6
+      000657 12r00r0D         [24] 1362 	lcall	_serial_print
+      00065A D0 06            [24] 1363 	pop	ar6
+      00065C D0 07            [24] 1364 	pop	ar7
+      00065E 80 11            [24] 1365 	sjmp	00146$
+      000660                       1366 00127$:
+                                   1367 ;	firmware.c:257: serial_print(" ");
+      000660 90r01r53         [24] 1368 	mov	dptr,#___str_13
+      000663 75 F0 80         [24] 1369 	mov	b,#0x80
+      000666 C0 07            [24] 1370 	push	ar7
+      000668 C0 06            [24] 1371 	push	ar6
+      00066A 12r00r0D         [24] 1372 	lcall	_serial_print
+      00066D D0 06            [24] 1373 	pop	ar6
+      00066F D0 07            [24] 1374 	pop	ar7
+      000671                       1375 00146$:
+                                   1376 ;	firmware.c:249: for (uint8_t i = 0; i < req_len; i++) {
+      000671 0F               [12] 1377 	inc	r7
+      000672 02r05rE1         [24] 1378 	ljmp	00145$
+      000675                       1379 00132$:
+                                   1380 ;	firmware.c:261: serial_print("\n-end\n");
+      000675 90r01r55         [24] 1381 	mov	dptr,#___str_14
+      000678 75 F0 80         [24] 1382 	mov	b,#0x80
+      00067B 12r00r0D         [24] 1383 	lcall	_serial_print
+                                   1384 ;	firmware.c:266: }
+      00067E 02r03r5B         [24] 1385 	ljmp	00137$
+                                   1386 	.area CSEG    (CODE)
+                                   1387 	.area CONST   (CODE)
+      000000                       1388 ___str_0:
+      000000 69 32 63 20 73 74 61  1389 	.ascii "i2c status: transaction completed / ready"
+             74 75 73 3A 20 74 72
+             61 6E 73 61 63 74 69
+             6F 6E 20 63 6F 6D 70
+             6C 65 74 65 64 20 2F
+             20 72 65 61 64 79
+      000029 0A                    1390 	.db 0x0a
+      00002A 00                    1391 	.db 0x00
+      00002B                       1392 ___str_1:
+      00002B 69 32 63 20 73 74 61  1393 	.ascii "i2c status: busy"
+             74 75 73 3A 20 62 75
+             73 79
+      00003B 0A                    1394 	.db 0x0a
+      00003C 00                    1395 	.db 0x00
+      00003D                       1396 ___str_2:
+      00003D 69 32 63 20 73 74 61  1397 	.ascii "i2c status: error - device not found"
+             74 75 73 3A 20 65 72
+             72 6F 72 20 2D 20 64
+             65 76 69 63 65 20 6E
+             6F 74 20 66 6F 75 6E
+             64
+      000061 0A                    1398 	.db 0x0a
+      000062 00                    1399 	.db 0x00
+      000063                       1400 ___str_3:
+      000063 69 32 63 20 73 74 61  1401 	.ascii "i2c status: error - device misbehaved"
+             74 75 73 3A 20 65 72
+             72 6F 72 20 2D 20 64
+             65 76 69 63 65 20 6D
+             69 73 62 65 68 61 76
+             65 64
+      000088 0A                    1402 	.db 0x0a
+      000089 00                    1403 	.db 0x00
+      00008A                       1404 ___str_4:
+      00008A 69 32 63 20 73 74 61  1405 	.ascii "i2c status: unknown error"
+             74 75 73 3A 20 75 6E
+             6B 6E 6F 77 6E 20 65
+             72 72 6F 72
+      0000A3 0A                    1406 	.db 0x0a
+      0000A4 00                    1407 	.db 0x00
+      0000A5                       1408 ___str_5:
+      0000A5 49 4E 49 54 20 4F 4B  1409 	.ascii "INIT OK"
+      0000AC 0A                    1410 	.db 0x0a
+      0000AD 00                    1411 	.db 0x00
+      0000AE                       1412 ___str_6:
+      0000AE 3E 20                 1413 	.ascii "> "
+      0000B0 00                    1414 	.db 0x00
+      0000B1                       1415 ___str_7:
+      0000B1 2D 65 72 72 3A 20 63  1416 	.ascii "-err: command too long, rejected"
+             6F 6D 6D 61 6E 64 20
+             74 6F 6F 20 6C 6F 6E
+             67 2C 20 72 65 6A 65
+             63 74 65 64
+      0000D1 0A                    1417 	.db 0x0a
+      0000D2 00                    1418 	.db 0x00
+      0000D3                       1419 ___str_8:
+      0000D3 2D 65 72 72 3A 20 63  1420 	.ascii "-err: command format incorrect"
+             6F 6D 6D 61 6E 64 20
+             66 6F 72 6D 61 74 20
+             69 6E 63 6F 72 72 65
+             63 74
+      0000F1 0A                    1421 	.db 0x0a
+      0000F2 00                    1422 	.db 0x00
+      0000F3                       1423 ___str_9:
+      0000F3 2D 65 72 72 3A 20 75  1424 	.ascii "-err: unknown command"
+             6E 6B 6E 6F 77 6E 20
+             63 6F 6D 6D 61 6E 64
+      000108 0A                    1425 	.db 0x0a
+      000109 00                    1426 	.db 0x00
+      00010A                       1427 ___str_10:
+      00010A 2D 65 72 72 3A 20 70  1428 	.ascii "-err: port invalid or not allowed"
+             6F 72 74 20 69 6E 76
+             61 6C 69 64 20 6F 72
+             20 6E 6F 74 20 61 6C
+             6C 6F 77 65 64
+      00012B 0A                    1429 	.db 0x0a
+      00012C 00                    1430 	.db 0x00
+      00012D                       1431 ___str_11:
+      00012D 2D 65 72 72 3A 20 49  1432 	.ascii "-err: I2C request length incorrect"
+             32 43 20 72 65 71 75
+             65 73 74 20 6C 65 6E
+             67 74 68 20 69 6E 63
+             6F 72 72 65 63 74
+      00014F 0A                    1433 	.db 0x0a
+      000150 00                    1434 	.db 0x00
+      000151                       1435 ___str_12:
+      000151 0A                    1436 	.db 0x0a
+      000152 00                    1437 	.db 0x00
+      000153                       1438 ___str_13:
+      000153 20                    1439 	.ascii " "
+      000154 00                    1440 	.db 0x00
+      000155                       1441 ___str_14:
+      000155 0A                    1442 	.db 0x0a
+      000156 2D 65 6E 64           1443 	.ascii "-end"
+      00015A 0A                    1444 	.db 0x0a
+      00015B 00                    1445 	.db 0x00
+                                   1446 	.area XINIT   (CODE)
+                                   1447 	.area CABS    (ABS,CODE)

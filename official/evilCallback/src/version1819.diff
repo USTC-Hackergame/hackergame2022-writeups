@@ -1,0 +1,131 @@
+diff --git a/src/builtins/builtins-array.cc b/src/builtins/builtins-array.cc
+index ea21a19a86..0c3707cee4 100644
+--- a/src/builtins/builtins-array.cc
++++ b/src/builtins/builtins-array.cc
+@@ -650,14 +650,11 @@ class ArrayConcatVisitor {
+         index_offset_(0u),
+         bit_field_(FastElementsField::encode(fast_elements) |
+                    ExceedsLimitField::encode(false) |
+-                   IsFixedArrayField::encode(storage->IsFixedArray(isolate)) |
++                   IsFixedArrayField::encode(storage->IsFixedArray()) |
+                    HasSimpleElementsField::encode(
+-                       storage->IsFixedArray(isolate) ||
+-                       // Don't take fast path for storages that might have
+-                       // side effects when storing to them.
+-                       (!storage->map(isolate).IsCustomElementsReceiverMap() &&
+-                        !storage->IsJSTypedArray(isolate)))) {
+-    DCHECK_IMPLIES(this->fast_elements(), is_fixed_array());
++                       storage->IsFixedArray() ||
++                       !storage->map().IsCustomElementsReceiverMap())) {
++    DCHECK(!(this->fast_elements() && !is_fixed_array()));
+   }
+ 
+   ~ArrayConcatVisitor() { clear_storage(); }
+@@ -1068,8 +1065,8 @@ bool IterateElements(Isolate* isolate, Handle<JSReceiver> receiver,
+     return IterateElementsSlow(isolate, receiver, length, visitor);
+   }
+ 
+-  if (!visitor->has_simple_elements() ||
+-      !HasOnlySimpleElements(isolate, *receiver)) {
++  if (!HasOnlySimpleElements(isolate, *receiver) ||
++      !visitor->has_simple_elements()) {
+     return IterateElementsSlow(isolate, receiver, length, visitor);
+   }
+   Handle<JSObject> array = Handle<JSObject>::cast(receiver);
+@@ -1085,9 +1082,6 @@ bool IterateElements(Isolate* isolate, Handle<JSReceiver> receiver,
+     case HOLEY_SEALED_ELEMENTS:
+     case HOLEY_NONEXTENSIBLE_ELEMENTS:
+     case HOLEY_ELEMENTS: {
+-      // Disallow execution so the cached elements won't change mid execution.
+-      DisallowJavascriptExecution no_js(isolate);
+-
+       // Run through the elements FixedArray and use HasElement and GetElement
+       // to check the prototype for missing elements.
+       Handle<FixedArray> elements(FixedArray::cast(array->elements()), isolate);
+@@ -1114,9 +1108,6 @@ bool IterateElements(Isolate* isolate, Handle<JSReceiver> receiver,
+     }
+     case HOLEY_DOUBLE_ELEMENTS:
+     case PACKED_DOUBLE_ELEMENTS: {
+-      // Disallow execution so the cached elements won't change mid execution.
+-      DisallowJavascriptExecution no_js(isolate);
+-
+       // Empty array is FixedArray but not FixedDoubleArray.
+       if (length == 0) break;
+       // Run through the elements FixedArray and use HasElement and GetElement
+@@ -1153,9 +1144,6 @@ bool IterateElements(Isolate* isolate, Handle<JSReceiver> receiver,
+     }
+ 
+     case DICTIONARY_ELEMENTS: {
+-      // Disallow execution so the cached dictionary won't change mid execution.
+-      DisallowJavascriptExecution no_js(isolate);
+-
+       Handle<NumberDictionary> dict(array->element_dictionary(), isolate);
+       std::vector<uint32_t> indices;
+       indices.reserve(dict->Capacity() / 2);
+diff --git a/src/objects/fixed-array-inl.h b/src/objects/fixed-array-inl.h
+index 8c0412dcb6..a91f89784f 100644
+--- a/src/objects/fixed-array-inl.h
++++ b/src/objects/fixed-array-inl.h
+@@ -366,7 +366,7 @@ int Search(T* array, Name name, int valid_entries, int* out_insertion_index,
+ double FixedDoubleArray::get_scalar(int index) {
+   DCHECK(map() != GetReadOnlyRoots().fixed_cow_array_map() &&
+          map() != GetReadOnlyRoots().fixed_array_map());
+-  DCHECK_LT(static_cast<unsigned>(index), static_cast<unsigned>(length()));
++  DCHECK(index >= 0 && index < this->length());
+   DCHECK(!is_the_hole(index));
+   return ReadField<double>(kHeaderSize + index * kDoubleSize);
+ }
+@@ -374,7 +374,7 @@ double FixedDoubleArray::get_scalar(int index) {
+ uint64_t FixedDoubleArray::get_representation(int index) {
+   DCHECK(map() != GetReadOnlyRoots().fixed_cow_array_map() &&
+          map() != GetReadOnlyRoots().fixed_array_map());
+-  DCHECK_LT(static_cast<unsigned>(index), static_cast<unsigned>(length()));
++  DCHECK(index >= 0 && index < this->length());
+   int offset = kHeaderSize + index * kDoubleSize;
+   // Bug(v8:8875): Doubles may be unaligned.
+   return base::ReadUnalignedValue<uint64_t>(field_address(offset));
+@@ -392,7 +392,6 @@ Handle<Object> FixedDoubleArray::get(FixedDoubleArray array, int index,
+ void FixedDoubleArray::set(int index, double value) {
+   DCHECK(map() != GetReadOnlyRoots().fixed_cow_array_map() &&
+          map() != GetReadOnlyRoots().fixed_array_map());
+-  DCHECK_LT(static_cast<unsigned>(index), static_cast<unsigned>(length()));
+   int offset = kHeaderSize + index * kDoubleSize;
+   if (std::isnan(value)) {
+     WriteField<double>(offset, std::numeric_limits<double>::quiet_NaN());
+@@ -409,7 +408,6 @@ void FixedDoubleArray::set_the_hole(Isolate* isolate, int index) {
+ void FixedDoubleArray::set_the_hole(int index) {
+   DCHECK(map() != GetReadOnlyRoots().fixed_cow_array_map() &&
+          map() != GetReadOnlyRoots().fixed_array_map());
+-  DCHECK_LT(static_cast<unsigned>(index), static_cast<unsigned>(length()));
+   int offset = kHeaderSize + index * kDoubleSize;
+   base::WriteUnalignedValue<uint64_t>(field_address(offset), kHoleNanInt64);
+ }
+diff --git a/src/objects/map-updater.cc b/src/objects/map-updater.cc
+index 31841992de..95b435085e 100644
+--- a/src/objects/map-updater.cc
++++ b/src/objects/map-updater.cc
+@@ -139,20 +139,11 @@ Handle<Map> MapUpdater::ReconfigureToDataField(InternalIndex descriptor,
+   if (old_details.constness() == PropertyConstness::kConst &&
+       old_details.location() == kField &&
+       old_details.attributes() != new_attributes_) {
+-    // Ensure we'll be updating constness of the up-to-date version of old_map_.
+-    Handle<Map> old_map = Map::Update(isolate_, old_map_);
+-    PropertyDetails details =
+-        old_map->instance_descriptors(kRelaxedLoad).GetDetails(descriptor);
+     Handle<FieldType> field_type(
+-        old_map->instance_descriptors(kRelaxedLoad).GetFieldType(descriptor),
+-        isolate_);
+-    Map::GeneralizeField(isolate_, old_map, descriptor,
+-                         PropertyConstness::kMutable, details.representation(),
+-                         field_type);
+-    DCHECK_EQ(PropertyConstness::kMutable,
+-              old_map->instance_descriptors(kRelaxedLoad)
+-                  .GetDetails(descriptor)
+-                  .constness());
++        old_descriptors_->GetFieldType(modified_descriptor_), isolate_);
++    Map::GeneralizeField(isolate_, old_map_, descriptor,
++                         PropertyConstness::kMutable,
++                         old_details.representation(), field_type);
+     // The old_map_'s property must become mutable.
+     // Note, that the {old_map_} and {old_descriptors_} are not expected to be
+     // updated by the generalization if the map is already deprecated.

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="static/bootstrap.min.css">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+        <title>坎瑞亚的宝藏图</title>
+    </head>
+    <body>
+    <div class="container mt-3 mb-3">
+        <h1>引子</h1>
+
+        {%if fail_msg is defined%}
+        <div class="alert alert-danger" role="alert">{{fail_msg}}</div>
+        {%endif%}
+
+        <p>相传，<strong>伯恩斯坦</strong>曾到访过一个叫做「坎瑞亚」的古国。游历期间，他发明了一种基于量子计算的密码算法，这种算法可以利用量子计算机进行快速运算。然而，时光荏苒，时过境迁，这种算法竟遗失在了历史长河里。这天，旅行者（你）在游历提瓦特大陆时，收到了一封神秘的匿名邮件。据邮件所说，旅行者若是能够重新解密这一算法，便能获得一个名为 <strong>FLAG</strong> 的金色圣遗物。似乎 <strong>FLAG</strong> 正是隐藏在算法之中。</p>
+
+        <hr />
+
+        {% if alice_basis is defined and alice_result is defined and bob_basis is defined%}
+        <h3>第一章-第二幕</h3>
+        {%else%}
+        <h3>第一章-第一幕</h3>
+        {%endif%}
+
+        <p>发件人：匿名</p>
+        <p>收件人：旅行者</p>
+        <p>主题：关于寻找伯恩斯坦的量子算法</p>
+        <p>旅行者，追寻 FLAG 的道路违背天理，务必不能让「七神」所知。因此，我们必须使用一种名为 BB84 的量子密钥分发协议，协商出长度为 128 比特的密钥，构建起安全的通信信道。唯有如此，我才能向你发送伯恩斯坦的藏宝图。</p>
+        <p>请你作为 Alice 产生和发送量子态，用于和 Bob （也就是我）产生安全随机密钥。</p>
+        <p>P.S. 首先，你需要向我发送一串<strong>制备基底</strong>和<strong>量子态</strong>。你可以使用 '+'（ASCII: 43）和 'x'（ASCII: 120）代表 Z 基和 X 基；使用 '0' 和 '1' 代表量子态。之后，我会向你发送我的<strong>测量基底</strong>。这样，我们应该就协商出了一个足够安全的密钥。</p>
+        <p>P.P.S. 协商的密钥至少为 128 比特。如果协商密钥的长度大于 128 比特，那么截取前 128 比特使用。密钥同样使用 '0' 和 '1' 字符串表示。</p>
+
+        <hr />
+            
+        {% if alice_basis is defined and alice_result is defined and bob_basis is defined%}
+        <form method="post" action="/check_key">
+
+            <div class="mb-3 mr-auto ml-auto row">
+                <label for="aliceBasis" class="col-sm-2 col-form-label">制备基底：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control-plaintext" id="aliceBasis" name="alice_basis" readonly value="{{alice_basis}}">
+                </div>
+            </div>
+  
+            <div class="mb-3 row">
+                <label for="aliceResult" class="col-sm-2 col-form-label">量子态：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control-plaintext" id="aliceResult" name="alice_result" readonly value="{{alice_result}}"> 
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="bobBasis" class="col-sm-2 col-form-label">测量基底：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control-plaintext" id="bobBasis" name="bob_basis" readonly value="{{bob_basis}}"> 
+                </div>
+            </div>
+
+            <div class="mb-3 row">
+                <label for="secretKey" class="col-sm-2 col-form-label">安全密钥：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="secretKey" name="bob_result" value=""> 
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">登录</button>
+        </form>
+        
+        <a href="/clean_qkd"><button class="btn btn-danger mt-3" >重来</button></a>
+
+        {% else %}
+        <form method="post" action="/login">
+
+            <div class="mb-3 row">
+                <label for="aliceBasis" class="col-sm-2 col-form-label">制备基底：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="aliceBasis" name="alice_basis" value="">
+                </div>
+            </div>
+  
+            <div class="mb-3 mr-auto ml-auto row">
+                <label for="aliceResult" class="col-sm-2 col-form-label">量子态：</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="aliceResult" name="alice_result" value=""> 
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">提交量子态</button>
+        </form>
+
+        <a href="/clean_qkd"><button class="btn btn-danger mt-3" >重新登录</button></a>
+        {% endif%}
+
+        <br />
+        <a href="/logout">重置任务</a>
+    </div>
+
+    <script src="static/jquery.min.js"></script>
+    <script src="static/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

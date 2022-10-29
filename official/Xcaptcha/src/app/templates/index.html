@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <title>Xcaptcha</title>
+  </head>
+  <body>
+    <div class="container px-3 py-3">
+        <h1>AGI 核心机房 准入验证</h1>
+        {% if failed %}
+        <p>验证失败：{{failed_reason}}</p>
+        {% endif %}
+        <a href="/xcaptcha"><img src="/static/xcaptcha.png" alt="xcaptcha" class="img-fluid"></a>
+    </div>
+  </body>
+</html>

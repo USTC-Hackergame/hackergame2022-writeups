@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <title>微 积 分 计 算 小 练 习</title>
+  </head>
+  <body>
+    <div class="container px-3 py-3">
+        <h1>练习成绩页面</h1>
+        <p id="greeting">您好，[[ username ]]！</p>
+        <p id="score">您在练习中获得的分数为 <b>[[ score ]]</b>/100。</p>
+
+        <p><a href="#" id="copy">点击此链接，将页面 URL 复制到剪贴板。</a>你可返回平台，在「提交练习成绩 URL」处提交这里复制的 URL。</p>
+        <br>
+        <a href="/">再试一次</a>
+    </div>
+    <script>
+        function click() {
+            var url = window.location.href;
+            var input = document.createElement('input');
+            input.setAttribute('readonly', 'readonly');
+            input.setAttribute('value', url);
+            document.body.appendChild(input);
+            input.select();
+            if (document.execCommand('copy')) {
+                document.execCommand('copy');
+                alert('已复制到剪贴板');
+            }
+            document.body.removeChild(input);
+        }
+        
+        document.querySelector("#copy").addEventListener("click", click);
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const result = urlParams.get('result');
+        const b64decode = atob(result);
+        const colon = b64decode.indexOf(":");
+        const score = b64decode.substring(0, colon);
+        const username = b64decode.substring(colon + 1);
+
+        document.querySelector("#greeting").innerHTML = "您好，" + username + "！";
+        document.querySelector("#score").innerHTML = "您在练习中获得的分数为 <b>" + score + "</b>/100。";
+
+    </script>
+  </body>
+</html>

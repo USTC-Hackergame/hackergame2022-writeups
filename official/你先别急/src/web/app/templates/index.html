@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <script src="/static/jquery.min.js"></script>
+    <title>你先别急</title>
+  </head>
+  <body>
+    <div class="container px-3 py-3">
+        <h1>自适应难度验证码 demo</h1>
+        <div>
+          <form method=post enctype=multipart/form-data>
+            <div class="form-group">
+              <label for="name">测试用户名（不同风险等级）</label>
+              <select class="form-control" id="name" name="name">
+                <option selected="selected">Simple-1</option>
+                <option>Azusa-3</option>
+                <option>RELX-5</option>
+                <option>Diana-7</option>
+                <option>AzumaSeren-8</option>
+                <option>OP-9</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="cap">动态验证码</label>
+              <img src="" id="capimg">
+              <input type="text" class="form-control" id="cap" name="cap" required>
+            </div>
+            <button type="submit" class="btn btn-primary">登录</button>
+          </form>
+        </div>
+        <div class="mt-3">
+        {% if "正确" in msg %}
+        <div class="alert alert-success" role="alert">
+          {{ msg }}
+        </div>
+        {% elif msg %}
+        <div class="alert alert-warning" role="alert">
+          {{ msg }}
+        </div>
+        {% endif %}
+        </div>
+    </div>
+    <script>
+      var timeout = null;
+      var select = document.getElementById("name");
+      function update_captcha() {
+        if (timeout) {
+          clearTimeout(timeout);
+        }
+        select.disabled = true;
+        setTimeout(function() {
+          $.ajax({
+            type: "POST",
+            url: "/captcha",
+            data: {
+              username: $("#name").val()
+            },
+            success: function(data) {
+              select.disabled = false;
+              var result = data.result;
+              if (!result) {
+                alert("获取验证码失败。")
+              } else {
+                $("#capimg").attr("src", "data:image/png;charset=utf-8;base64," + result);
+              }
+            },
+            error: function(data) {
+              select.disabled = false;
+              alert("获取验证码失败。")
+            }
+          })
+        }, 1100);
+      }
+      $("#name").change(function() {
+        update_captcha();
+      });
+      update_captcha();
+    </script>
+  </body>
+</html>
