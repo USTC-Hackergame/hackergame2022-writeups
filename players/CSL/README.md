@@ -336,7 +336,7 @@ int main() {
 用合适的工具打开附件，发现与 flag 相关的图层在 `ebaz_sdr-F_Cu.gbr` 文件中，不过 flag 被若干圆形挡住了。  
 数一下圆形的数量，发现是 18 个，用文本编辑器打开找到符合特征的上下文并把对应行删除，然后重新打开这个文件就能看到 flag。
 
-![线路板 修改前](./assers/gbr_1.png) ![线路板 修改后](./assets/gbr_2.png)
+![线路板 修改前](./assets/gbr_1.png) ![线路板 修改后](./assets/gbr_2.png)
 
 ## Flag 自动机
 
@@ -442,7 +442,8 @@ int main() {
 正式交互时，考虑先让两局，根据前两局反馈的正确答案从之前保存的结果中找到这次生成所使用的种子，这样就几乎能保证后三次是正确的了。
 
 <details>
-<summary>代</summary>
+<summary>代码</summary>
+
 ```cpp
 // SPDX-License-Identifier: CC-BY-NC-SA-4.0
 
@@ -834,7 +835,7 @@ float sceneSDF(vec3 p, out vec3 pColor) {
 
 ## 传达不到的文件
 
-> **warn**
+> **Warning**  
 > 这是一个非预期解。  
 > 预期做法请参考[官方题解](https://github.com/USTC-Hackergame/hackergame2022-writeups/tree/master/official/传达不到的文件)。
 
