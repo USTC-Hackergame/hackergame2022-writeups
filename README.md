@@ -60,6 +60,7 @@
 | - | - | - |
 | [mcfx](players/mcfx/wp.md) | (TBD) | 除壹...壹字节？和 evilCallback 以外的全部题目 |
 | [TonyCrane 博客](https://blog.tonycrane.cc/p/630bfdd5.html) | 总排名第 80 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、LaTeX 机器人、链上记忆大师-1、旅行照片 2.0、猜数字、Flag 的痕迹、安全的在线测评-1、线路板、Flag 自动机、杯窗鹅影-1、微积分计算小练习、蒙特卡罗轮盘赌、二次元神经网络、光与影、片上系统-1、企鹅拼盘-1/2、火眼金睛的小 E-1 |
+| [huggy](https://blog.huggy.moe/posts/2022/14-ustclug-ctf-writeup/) | 总排名第112名 |签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片2.0、LaTeX 机器人、Flag 的痕迹、安全的在线测评、线路板、Flag 自动机、微积分计算小练习、惜字如金、光与影、片上系统、传达不到的文件 |
 
 ## 其他资源
 
