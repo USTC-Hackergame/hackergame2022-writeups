@@ -39,7 +39,7 @@
 | [置换魔群](official/置换魔群/README.md) | [文件、源代码](official/置换魔群/src) |
 | [光与影](official/光与影/README.md) | [文件、源代码](official/光与影/src) |
 | [矩阵之困](official/矩阵之困/README.md) | [文件、源代码](official/矩阵之困/src) |
-| [你先别急（暂缺）](official/你先别急/README.md) | [文件、源代码](official/你先别急/src) |
+| [你先别急](official/你先别急/README.md) | [文件、源代码](official/你先别急/src) |
 | [链上记忆大师](official/链上记忆大师/README.md) | [文件、源代码](official/链上记忆大师/src) |
 | [片上系统](official/片上系统/README.md) | [文件、源代码](official/片上系统/src) |
 | [传达不到的文件](official/传达不到的文件/README.md) | [文件、源代码](official/传达不到的文件/src) |
