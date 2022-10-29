@@ -1,6 +1,6 @@
 # 你先别急
 
-题解作者：[NAME](GITHUB URL)
+题解作者：[volltin](https://github.com/volltin)
 
 出题人、验题人、文案设计等：见 [Hackergame 2022 幕后工作人员](https://hack.lug.ustc.edu.cn/credits/)。
 

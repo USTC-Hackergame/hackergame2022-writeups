@@ -65,8 +65,13 @@
 | [Misaka13514](players/Misaka13514/wp.md) | 总排名第 70 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片 2.0、猜数字、LaTeX 机器人、Flag 的痕迹、安全的在线测评-无法 AC 的题目、线路板、Flag 自动机、微积分计算小练习、杯窗鹅影、蒙特卡罗轮盘赌、惜字如金-HS384、光与影、片上系统-引导扇区、量子藏宝图、企鹅拼盘-这么简单我闭眼都可以！&大力当然出奇迹啦~、火眼金睛的小 E-有手就行 |
 | [std::_Rb_tree](players/rb_tree/README.md) | 总排名第 25 名 | 签到题, 猫咪问答喵, 家目录里的秘密, HeiLang, Xcaptcha, 旅行照片 2.0, 猜数字, LaTeX 机器人, Flag 的痕迹, 安全的在线测评, 线路板, Flag 自动机, 微积分计算小练习, 杯窗鹅影, 蒙特卡罗轮盘赌, 惜字如金, 置换魔群, 光与影, 片上系统, 看不见的彼方, 量子藏宝图, 企鹅拼盘, 火眼金睛的小 E |
 | [kxxt](https://www.kxxt.dev/blog/my-first-ctf-hackergame-2022/) | 总排名第 34 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片2.0(照片分析)、猜数字、LaTeX 机器人、Flag 的痕迹、安全的在线测评、线路板、Flag 自动机、微积分计算小练习、杯窗鹅影、二次元神经网络、光与影、链上记忆大师(记忆练习)、片上系统(引导扇区)、传达不到的文件、看不到的彼方、量子藏宝图、企鹅拼盘(这么简单我闭眼都可以, 大力当然出奇迹啦~) |
+| [Mufanc](players/Mufanc/README.md) | 总排名第 58 名 | 签到、猫咪问答喵、加目录里的秘密、HeiLang、Xcaptcha、旅行照片 2.0、猜数字、LaTeX 机器人、Flag 的痕迹、安全的在线测评、线路板、Flag 自动机、微积分计算小练习、杯窗鹅影、蒙特卡洛轮盘赌、光与影、传达不到的文件、看不见的彼方、企鹅拼盘（前两问） |
 | [monad](players/monad.md) | 总排名第 98 名 | 看不见的彼方（共享内存） |
 | [atxy](players/atxy/README.md) | 一般路过（ | LaTeX 机器人 |
+| [xtex](https://xtexx.ml/blog/2022/10/28/ustc-hackergame2022/) | 总排名第 185 名 | 签到, 猫咪问答喵1，家目录里的秘密， HeiLang, Xcaptcha, 旅行照片 2.0-1，Latex机器人-1, Flag 的痕迹，线路板， Flag 自动机，微积分计算小练习，杯窗鹅影， 光与影 |
+| [liuly](players/liuly/hackergame.md) | 总排名第 14 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、猜数字、LaTeX 机器人、Flag 的痕迹、安全的在线测评、微积分计算小练习、杯窗鹅影、蒙特卡罗轮盘赌、不可加密的异世界、光与影、片上系统、传达不到的文件、看不见的彼方、量子藏宝图、《关于 RoboGame 的轮子永远调不准速度这件事》、企鹅拼盘 |
+| [yezhiyi9670](players/yezhiyi9670/writeup-yezhiyi9670-render.pdf) | 总排名第 50 名 | 签到、Xcapthca、HeiLang、家目录里的秘密、旅行照片 2.0（部分）、猫咪问答喵、微积分计算小练习、LaTeX 机器人（部分）、Flag 自动机、Flag 的痕迹、线路板、光与影、猜数字、蒙特卡罗轮盘赌、企鹅拼盘（部分）、你先别急、杯窗鹅影、惜字如金（部分）、片上系统（部分）、安全的在线评测、看不见的彼方 |
+| [晴猫](https://baka.studio/p/hackergame-2022-writeup/) | 总排名第 42 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片 2.0、LaTeX 机器人、Flag 的痕迹、安全的在线测评-1、线路板、微积分计算小练习、杯窗鹅影-1、二次元神经网络、光与影、链上记忆大师-1、传达不到的文件、企鹅拼盘前两道题 |
 
 ## 其他资源
 
