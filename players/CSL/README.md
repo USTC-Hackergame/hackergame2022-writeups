@@ -396,6 +396,9 @@ win32gui.SendMessage(
 
 通过 `explorer.exe` 可以发现，即便是没有设置 `Z:\` 的映射，也能从一个 `/` 的驱动器能看到。点击后再去地址栏可以看到地址为 `\\?\unix`。  
 用 C 语言写一个程序打开并读取 `\\?\unix\flag1` 后输出得到 flag。  
+
+![杯窗鹅影](./assets/wine.png)
+
 既然都能目录穿越了， `execve` 调 `\\?\unix\readflag` 就能拿到另一个了。
 
 <details>
