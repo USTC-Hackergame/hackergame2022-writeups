@@ -59,7 +59,7 @@
 | write-up | 备注 | 包含题目 |
 | - | - | - |
 | [mcfx](players/mcfx/wp.md) | (TBD) | 除壹...壹字节？和 evilCallback 以外的全部题目 |
-
+| [huggy](https://blog.huggy.moe/posts/2022/14-ustclug-ctf-writeup/) | 总排名第112名 |签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片2.0、LaTeX 机器人、Flag 的痕迹、安全的在线测评、线路板、Flag 自动机、微积分计算小练习、惜字如金、光与影、片上系统、传达不到的文件 |
 ## 其他资源
 
 [Hackergame 2022 幕后工作人员](https://hack.lug.ustc.edu.cn/credits/)
