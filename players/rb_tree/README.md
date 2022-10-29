@@ -220,7 +220,7 @@ char *sub_401F8A()
 
 ![](./img/flag_machine-2.png)
 
-这时候干脆就别静态分析了, 直接 attack 一个 process 劫持执行流到下图中的第 21 行就可以了, 然后你就会惊喜的同级目录下发现多了一个文件, 点开一看, 嘶... `flag{Y0u_rea1ly_kn0w_Win32API_89ab91ac0c}`
+这时候干脆就别静态分析了, 直接 attach 一个 process 劫持执行流到下图中的第 21 行就可以了, 然后你就会惊喜的同级目录下发现多了一个文件, 点开一看, 嘶... `flag{Y0u_rea1ly_kn0w_Win32API_89ab91ac0c}`
 
 ![](./img/flag_machine-1.png)
 
@@ -846,7 +846,7 @@ int main()
 
 第一问是 BB84 协议的 QKD, 类似与经典密码学里的 Diffie-Hellman 密钥协商. 简单概括一下就是 Alice 和 Bob 之间有一条量子信道和一条经典信道, Alice 会生成一串 $|0\rangle$ 或 $|1\rangle$ 量子态的随机的 qubit 串, 再随机的对其中的一些 qubit 施加 Hadamard Gate 使其中一些 qubit 变成 $|+\rangle$ 或 $|-\rangle$ (也就是随机选取了一组测量的基底). 这串 qubit 会通过量子信道传递给 Bob, Bob 则会随机选择以 $|0\rangle, |1\rangle$ 或 $|+\rangle, |-\rang$ 为基底对每个 qubit 进行测量, 然后在将自己选择的基底通过经典信道告诉 Alice, Alice 会通过经典信道告诉 Bob 哪些基底选择是正确的, Bob 则保留所有使用正确基底的测量结果作为密钥, Alice 也可以通过 Bob 向她发送的基底的信息知道自己应该保留哪些 bit 作为密钥. 这时 Alice 和 Bob 就有了一份相同的密钥而不会被第三者知道. 想要更深入学习的可以参考 Qiskit 的 [Quantum Key Distribution](https://qiskit.org/textbook/ch-algorithms/quantum-key-distribution.html) 这一章节.
 
-第二问是使用 Bernstein-Vazirani 算法解码一个长度为 $n$ 的 01 串 $s$, 具体算法可以去[这里](https://qiskit.org/textbook/ch-algorithms/bernstein-vazirani.html)学习. 在构造 Oracle 的时候会将每一个对应到 $s$ 中的 bit 为 1 的 qubit 作为 control bit 对第 $n$ 个 qubit 施加 CNOT. 题目给出的图中跟用这种方法构造出来的 Oracle 不一样的点在于图中的 Oracle 部分多了一些成对出现的 Pauli-X, Pauli-Z 和 Hadamard Gate, 但由于这些 Gate 的共轭转置都是它自身, 所有不会影响最后测量前的量子态. 另外这里给出测量前量子态的数学表示和构造线路的 qiskit 代码供参考.
+第二问是使用 Bernstein-Vazirani 算法解码一个长度为 $n$ 的 01 串 $s$, 具体算法可以去[这里](https://qiskit.org/textbook/ch-algorithms/bernstein-vazirani.html)学习. 在构造 Oracle 的时候会将每一个对应到 $s$ 中的 bit 为 1 的 qubit 作为 control bit 对第 $n$ 个 qubit 施加 CNOT. 题目给出的图中跟用这种方法构造出来的 Oracle 不一样的点在于图中的 Oracle 部分多了一些成对出现的 Pauli-X, Pauli-Z 和 Hadamard Gate, 但由于这些 Gate 的共轭转置都是它自身, 所以不会影响最后测量前的量子态. 另外这里给出测量前量子态的数学表示和构造线路的 qiskit 代码供参考.
 $$
 \frac{1}{2^n}\sum_y \sum_x (-1)^{f(x) + xy}|y\rangle|-\rangle = \frac{1}{2^n}\sum_y \sum_x (-1)^{x (s \otimes y)}|y\rangle|-\rangle
 $$
