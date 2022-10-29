@@ -69,6 +69,7 @@
 | [monad](players/monad.md) | 总排名第 98 名 | 看不见的彼方（共享内存） |
 | [liuly](players/liuly/hackergame.md) | 总排名第 14 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、猜数字、LaTeX 机器人、Flag 的痕迹、安全的在线测评、微积分计算小练习、杯窗鹅影、蒙特卡罗轮盘赌、不可加密的异世界、光与影、片上系统、传达不到的文件、看不见的彼方、量子藏宝图、《关于 RoboGame 的轮子永远调不准速度这件事》、企鹅拼盘 |
 | [yezhiyi9670](players/yezhiyi9670/writeup-yezhiyi9670-render.pdf) | 总排名第 50 名 | 签到、Xcapthca、HeiLang、家目录里的秘密、旅行照片 2.0（部分）、猫咪问答喵、微积分计算小练习、LaTeX 机器人（部分）、Flag 自动机、Flag 的痕迹、线路板、光与影、猜数字、蒙特卡罗轮盘赌、企鹅拼盘（部分）、你先别急、杯窗鹅影、惜字如金（部分）、片上系统（部分）、安全的在线评测、看不见的彼方 |
+| [晴猫](https://baka.studio/p/hackergame-2022-writeup/) | 总排名第 42 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片 2.0、LaTeX 机器人、Flag 的痕迹、安全的在线测评-1、线路板、微积分计算小练习、杯窗鹅影-1、二次元神经网络、光与影、链上记忆大师-1、传达不到的文件、企鹅拼盘前两道题 |
 
 ## 其他资源
 
