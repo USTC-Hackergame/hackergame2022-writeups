@@ -88,6 +88,7 @@
 | [courier](players/courier/HackerGame-2022-WP.md) | 总排名第 97 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片 2.0、猜数字、LaTeX机器人、Flag 的痕迹、安全的在线测评 - 1、线路板、Flag 自动机、微积分计算小练习、杯窗鹅影、蒙特卡罗轮盘赌、光与影、片上系统 - 1、火眼金睛的小E - 1 |
 | [mariodon](players/mariodon/README.md) | 总排名第 19 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片 2.0、猜数字、LaTeX 机器人、Flag 的痕迹、安全的在线测评、线路板、Flag 自动机、微积分计算小练习、杯窗鹅影、蒙特卡罗轮盘赌、二次元神经网络、惜字如金 - 1、置换魔群 - 1、光与影、链上记忆大师 - 1、片上系统、传达不到的文件、看不见的彼方、量子藏宝图、企鹅拼盘 - 1/2、火眼金睛的小 E - 1 |
 | [EarthCompass](players/EarthCompass/README.md) | 总排名第 8 名 | 传达不到的文件、置换魔群、你先别急、看不见的彼方 |
+| [Panedioic](https://blog.pppane.com/archives/hackergame-2022-wp) | 总排名第 96 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、LaTeX 机器人、旅行照片 2.0、猜数字、Flag 的痕迹、安全的在线测评-1、线路板、Flag 自动机、微积分计算小练习、蒙特卡罗轮盘赌、惜字如金-1、置换魔群-1/2、光与影、片上系统-1、企鹅拼盘-1/2 |
 
 ## 其他资源
 
