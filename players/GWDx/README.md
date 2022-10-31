@@ -25,7 +25,7 @@ GWDx
 
 我对 AI 绘画很感兴趣，之前 bilibili 上 NovelAI 相关的视频看了不少。其中有一个 [你的NovelAI模型，极有可能被恶意攻击](https://www.bilibili.com/video/BV1BN4y1c7KX/) 提到了 pickle 模块可能存在安全问题。但是里面的代码只展示了 pkl 文件的读取和写入，没有 pt 文件的读取和写入。
 
-把 pt 文件解压缩可以得到一个 pkl，然而直接用 packle 载入会报错。把 PyTorch 版本换成题目中的 1.9 也不行。尝试调试库代码，以失败告终。
+把 pt 文件解压缩可以得到一个 pkl 文件，然而直接用 packle 载入会报错。把 PyTorch 版本换成题目中的 1.9 也不行。尝试调试库代码，以失败告终。
 
 > 15:30
 
@@ -79,6 +79,10 @@ Google 了好久，终于用 `pickle Serialization danger pytorch` 找到了一�
 查到了 [How to retrieve a crypt password from a config file](https://forum.rclone.org/t/how-to-retrieve-a-crypt-password-from-a-config-file/20051/3)
 
 装个 `go`，把里面的代码跑一跑，flag 就出来了。
+
+> 说得倒是很轻松，事实上花了不少时间呢。
+>
+> 感觉 MISC 题在考智商，能不能领会到出题人的想法
 
 
 <br>
@@ -193,7 +197,9 @@ Copilot 教会我用 `\input`
 
 http://202.38.93.111:15004/doku.php?id=start&do=diff
 
-然后鼠标点之前的版本，就能看到 flag 了。
+然后鼠标点之前的版本，就能得到 flag 了。
+
+> 我也花了挺久的
 
 <br>
 
@@ -240,7 +246,9 @@ int main(int argc, char* argv[]) {
 
 安装 Gerbv
 
-加载所有 `*.gbr` 文件，然后发现 `fla` 字样，把所有挡住的圆盘删掉，就能看到 flag 了。
+加载所有 `*.gbr` 文件，然后发现 `fla` 字样，把所有挡住的圆盘删掉，获得 flag。
+
+> 一开始装了个免费版的 Altium Designer，没用
 
 <br>
 
@@ -252,7 +260,7 @@ int main(int argc, char* argv[]) {
 
 用文本编辑器打开文件会显示一些文字，比如 `flag_machine.txt`
 
-学习了一下 IDA 的使用。找到 `fwrite` 的位置。根据反汇编的代码，将判断语句 `je` 更改为 
+学习了一下 IDA 的使用。找到了 `fwrite` 的位置。根据反汇编的代码，将判断语句 `jnz` 更改为 `jz`
 
 <br>
 
@@ -302,7 +310,7 @@ http://202.38.93.111:10056/share?result=OjxpbWcgc3JjPSIxIiBvbmVycm9yPWRvY3VtZW50
 
 #### flag1
 
-`fopen` 直接读就可以了
+`fopen` 直接读
 
 ```
 #include <stdio.h>
@@ -325,7 +333,7 @@ int main() {
 
 后来尝试用 windows 的 API，把 start.exe 附到代码里，但是评测机上的 start.exe 没有打印输出结果的选项
 
-最后发现用 windows 直接创建进程就可以了
+最后发现用 windows 直接创建进程运行这个文件是可以的
 
 ```c
 #include <stdio.h>
@@ -542,7 +550,7 @@ float sceneSDF(vec3 p, out vec3 pColor) {
 
 #### 记忆练习
 
-配置一下 solidity，然后学着写个记忆数字并能读取的合约
+配置一下 solidity，然后“照猫画虎”
 
 ```solidity
 contract MemoryMaster {
@@ -645,7 +653,7 @@ exit
 
 第二问，也找一份代码，把元件都标上，运行
 
-> 代码见 [qkd.py](27/qkd.py) 和 [BernsteinVaziraniAlgorithmSimple.ipynb](27/BernsteinVaziraniAlgorithmSimple.ipynb)
+> 代码见 [qkd.py](27/qkd.py) 和 [BernsteinVaziraniAlgorithmSimple.ipynb](27/BernsteinVaziraniAlgorithmSimple.ipynb)，
 > 分别参考了 [videlanicolas/QKD](https://github.com/videlanicolas/QKD) 和 [atilsamancioglu/QX05-BernsteinVaziraniAlgorithmSimple](https://github.com/atilsamancioglu/QX05-BernsteinVaziraniAlgorithmSimple/)
 
 <br>
