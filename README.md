@@ -90,6 +90,7 @@
 | [EarthCompass](players/EarthCompass/README.md) | 总排名第 8 名 | 传达不到的文件、置换魔群、你先别急、看不见的彼方 |
 | [���](players/nbnbnb/README.md) | 总排名第 1 名 | 壹...壹字节？、evilCallback、安全的在线测评、不可加密的异世界、置换魔群、你先别急、链上记忆大师、看不见的彼方、火眼金睛的小 E |
 | [Panedioic](https://blog.pppane.com/archives/hackergame-2022-wp) | 总排名第 96 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、LaTeX 机器人、旅行照片 2.0、猜数字、Flag 的痕迹、安全的在线测评-1、线路板、Flag 自动机、微积分计算小练习、蒙特卡罗轮盘赌、惜字如金-1、置换魔群-1/2、光与影、片上系统-1、企鹅拼盘-1/2 |
+| [cvhc](players/cvhc/README.md) | 总排名第 9 名  | 家目录里的秘密、旅行照片 2.0、Flag 自动机、二次元神经网络、不可加密的异世界、置换魔群（部分）、链上记忆大师（部分）、传达不到的文件、看不见的彼方、量子藏宝图、《关于 RoboGame 的轮子永远调不准速度这件事》、壹...壹字节？、火眼金睛的小 E（部分） |
 
 ## 其他资源
 
