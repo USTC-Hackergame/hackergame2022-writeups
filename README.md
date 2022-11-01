@@ -95,6 +95,8 @@
 | [星野 みなと](https://xyx.moe/019-USTC-Hackergame-2022-writeup.html) | 总排名第 39 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片 2.0、猜数字、LaTeX 机器人、Flag 的痕迹、安全的在线测评、线路板、Flag 自动机、微积分计算小练习、杯窗鹅影、蒙特卡罗轮盘赌、二次元神经网络、惜字如金 - HS384、光与影、片上系统 - 引导扇区、企鹅拼盘 - 前两问 |
 | [SuperSodaSea](players/SuperSodaSea/README.md) | 总排名第 4 名 | 除 惜字如金/2、矩阵之困、链上记忆大师/3、企鹅拼盘/3、小 Z 的靓号钱包、火眼金睛的小 E/3 外全部题目 |
 | [GWDx](players/GWDx) | 总排名第 15 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片 2.0、猜数字、LaTeX 机器人、Flag 的痕迹、安全的在线测评、线路板、Flag 自动机、微积分计算小练习、杯窗鹅影、蒙特卡罗轮盘赌、二次元神经网络、惜字如金 - 1、不可加密的异世界 - 1/2、置换魔群、光与影、链上记忆大师 - 1/2、片上系统 - 1、传达不到的文件、看不见的彼方、量子藏宝图、《关于 RoboGame 的轮子永远调不准速度这件事》、企鹅拼盘 - 1/2、火眼金睛的小 E - 1 |
+| [MiaoTony - part1](https://miaotony.xyz/2022/10/30/CTF_2022Hackergame_0x01/?utm_source=hg2022), [part2](https://miaotony.xyz/2022/10/30/CTF_2022Hackergame_0x02/?utm_source=hg2022), [part3](https://miaotony.xyz/2022/10/31/CTF_2022Hackergame_0x03/?utm_source=hg2022) | 总排名第 66 名 | 签到，家目录里的秘密，HeiLang，Xcaptcha，旅行照片 2.0，Flag 自动机，光与影，线路板，Flag 的痕迹，LaTeX 机器人，猜数字，微积分计算小练习；企鹅拼盘 - 1/2，火眼金睛的小 E - 1，安全的在线测评，杯窗鹅影，蒙特卡罗轮盘赌，片上系统 - 1，看不见的彼方；传达不到的文件，二次元神经网络，你先别急，惜字如金 - 1，量子藏宝图 |
+
 
 ## 其他资源
 
