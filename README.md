@@ -98,6 +98,7 @@
 | [MiaoTony - part1](https://miaotony.xyz/2022/10/30/CTF_2022Hackergame_0x01/?utm_source=hg2022), [part2](https://miaotony.xyz/2022/10/30/CTF_2022Hackergame_0x02/?utm_source=hg2022), [part3](https://miaotony.xyz/2022/10/31/CTF_2022Hackergame_0x03/?utm_source=hg2022) | 总排名第 66 名 | 签到，家目录里的秘密，HeiLang，Xcaptcha，旅行照片 2.0，Flag 自动机，光与影，线路板，Flag 的痕迹，LaTeX 机器人，猜数字，微积分计算小练习；企鹅拼盘 - 1/2，火眼金睛的小 E - 1，安全的在线测评，杯窗鹅影，蒙特卡罗轮盘赌，片上系统 - 1，看不见的彼方；传达不到的文件，二次元神经网络，你先别急，惜字如金 - 1，量子藏宝图 |
 | [JulianDroid](http://jurt4201.work/index.html#/md-src/contests/hackergame2022/index.md) | 总排名第 45 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片2.0（部分）、Latex机器人、Flag的痕迹、安全的在线测评、线路板、Flag自动机、微积分小练习、杯窗鹅影、蒙特卡罗轮盘赌、惜字如金（HS384）、不可加密的异世界、光与影、片上系统（部分）、传达不到的文件、企鹅拼盘（部分） |
 | [Testla](players/Testla) | 总排名第 17 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片 2.0-1、猜数字、LaTeX 机器人、Flag 的痕迹、安全的在线测评、线路板、Flag 自动机、微积分计算小练习、杯窗鹅影、蒙特卡罗轮盘赌、惜字如金-1、不可加密的异世界、置换魔群、光与影、链上记忆大师-1、片上系统-1、传达不到的文件、看不见的彼方、量子藏宝图、企鹅拼盘-1/2、火眼金睛的小 E-1 |
+| [wlt233 (日向千夏)](https://tqlwsl.moe/index.php/archives/1768/) | 总排名第 26 名 | 签到、猫咪问答喵、家目录里的秘密、HeiLang、Xcaptcha、旅行照片 2.0、猜数字、LaTeX 机器人、Flag 的痕迹、安全的在线评测-静态数据、线路板、Flag 自动机、微积分计算小练习、杯窗鹅影、蒙特卡罗轮盘赌、惜字如金-HS384、不可加密的异世界、 置换魔群-置换群上的 RSA、 光与影、链上记忆大师-记忆练习、片上系统、量子藏宝图、企鹅拼盘-这么简单我闭眼都可以！/大力当然出奇迹啦~、火眼金睛的小 E-有手就行 |
 
 
 ## 其他资源
