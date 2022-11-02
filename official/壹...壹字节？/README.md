@@ -27,6 +27,8 @@
 
 ## 题解
 
+出题思路来自 Dragon CTF 2021 Shellcode Verifier。
+
 这个题的考点是 mmap。[manual documentation](https://man7.org/linux/man-pages/man2/mmap.2.html) 里有这么一段：
 
 > POSIX specifies that the system shall always zero fill any
