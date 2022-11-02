@@ -27,6 +27,8 @@ NyaRu 要毕业了，苗苗璐很伤心，希望 call her back（在此翻译为
 ## 题解
 
 > [V8](https://v8.dev/) 是一款[开源](https://github.com/v8/v8)的 JavaScript 引擎，被用在 Google Chrome 和 Chromium 中，同时也是 Node.js 的根本。V8 可以独立运行，也可以嵌入到任何 C++ 应用程序中。以上赘述的几点都是为了表明 V8 漏洞的价值是非常高的。
+>
+> 这道题的思路来自 [CVE－2021－21225](https://bugs.chromium.org/p/chromium/issues/detail?id=1195977)，漏洞发现者 tiszka 在他的 [blog](https://tiszka.com/) 中非常详细地分析了 Array.prototype.concat 上一系列漏洞的[成因](https://tiszka.com/blog/CVE_2021_21225.html)和[利用思路](https://tiszka.com/blog/CVE_2021_21225_exploit.html)。
 
 #### 漏洞分析
 
@@ -519,7 +521,7 @@ writeAddr(buf_backing_store_addr, rwx_page_addr);
 >
 > 被 patch 版本是去年年初发布的，拿到比赛中确实有点老了，但用这个版本也是希望选手注意到本题漏洞点：`Array.prototype.concat` 函数中的[改动](src/version1819.diff)
 
-出这道题的过程比较曲折，最初确定思路为 V8 pwn 后，盯上了 [CVE-2021-21225](https://bugs.chromium.org/p/chromium/issues/detail?id=1195977)（也可以看一下这个漏洞发现者对这个洞的[分析](https://bugs.chromium.org/p/chromium/issues/detail?id=1195977)）。`Array.prototype.concat` 上的一系列漏洞，去除指针压缩是最开始的想法：对于没有相关经验的选手，指针压缩可能会对理解上造成不必要的困扰，也很高兴有不少选手按照预期思路做出来了，希望大家会喜欢这种偏向 Real world 类型的题目*~~这不比卷 glibc 版本有趣多了？~~*。
+出这道题的过程比较曲折，最初确定思路为 V8 pwn 后，盯上了 [CVE-2021-21225](https://bugs.chromium.org/p/chromium/issues/detail?id=1195977)（也可以看一下这个漏洞发现者对这个洞的[分析](https://tiszka.com/blog/CVE_2021_21225.html)) `Array.prototype.concat` 上的一系列漏洞，去除指针压缩是最开始的想法：对于没有相关经验的选手，指针压缩可能会对理解上造成不必要的困扰，也很高兴有不少选手按照预期思路做出来了，希望大家会喜欢这种偏向 Real world 类型的题目*~~这不比卷 glibc 版本有趣多了？~~*。
 
 其实出题过程中的其他版本会比现在复杂一些，包括：
 
