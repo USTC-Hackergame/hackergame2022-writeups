@@ -435,7 +435,7 @@ v     0040188C | E8 3F650000          | call <JMP.&fopen>                       
 
 借助 x64dbg 的 [snowman](https://github.com/x64dbg/snowman) 反编译插件，虽然反编译代码的质量不如人意，不过足够帮我理清楚这段代码的控制流了：
 
-<detials>
+<details>
 <summary>展开反编译代码</summary>
 
 ``` c
@@ -555,7 +555,7 @@ void fun_401510(int32_t a1, int32_t a2, int32_t a3, int32_t a4) {
 }
 ```
 
-</detials>
+</details>
 
 这里的判断的 `[ebp+14]` 实际上是函数的第 4 个参数，那么只需要挂钩这个函数，让第 4 个参数的值变成 `0x1bf52` 就可以了。不过这个函数会被反复调用，不是所有情况下都需要改这个参数的。
 
