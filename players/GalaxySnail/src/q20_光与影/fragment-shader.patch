@@ -1,0 +1,15 @@
+diff --git a/fragment-shader.js b/fragment-shader.js
+index b8e8d33..e772bf9 100644
+--- a/fragment-shader.js
++++ b/fragment-shader.js
+@@ -299,9 +299,8 @@ float sceneSDF(vec3 p, out vec3 pColor) {
+     float t2 = t2SDF((mk_trans(-45.0, 0.0, 0.0) * pTO).xyz);
+     float t3 = t3SDF((mk_trans(-80.0, 0.0, 0.0) * pTO).xyz);
+     float t4 = t4SDF((mk_trans(-106.0, 0.0, 0.0) * pTO).xyz);
+-    float t5 = t5SDF(p - vec3(36.0, 10.0, 15.0), vec3(30.0, 5.0, 5.0), 2.0);
+
+-    float tmin = min(min(min(min(t1, t2), t3), t4), t5);
++    float tmin = min(min(min(t1, t2), t3), t4);
+     return tmin;
+ }
+
