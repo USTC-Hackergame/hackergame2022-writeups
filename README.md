@@ -104,7 +104,7 @@
 
 ## 其他资源
 
-[Hackergame 2022 幕后工作人员](https://hack.lug.ustc.edu.cn/credits/)
+[Hackergame 2022 幕后工作人员](./credits.pdf)
 
 [搞笑 Flag & 花絮](./behind-the-scenes/README.md)
 
