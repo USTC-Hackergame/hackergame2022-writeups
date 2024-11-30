@@ -2,13 +2,15 @@
 
 本文档收集整理了中国科学技术大学第九届信息安全大赛的官方与非官方题解。
 
-该仓库仍在活跃更新中，欢迎各位选手以 Pull Request 的形式提交自己的 write-up（players 目录下以自己的昵称创建新文件夹，并在本文件的「来自选手」部分增加一行）。
+欢迎各位选手以 Pull Request 的形式提交自己的 write-up（players 目录下以自己的昵称创建新文件夹，并在本文件的「来自选手」部分增加一行）。
 
 若大家对本题解有任何疑问或改进建议，欢迎 [提 issue](https://github.com/USTC-Hackergame/hackergame2022-writeups/issues/new)。
 
 比赛平台：[https://hack.lug.ustc.edu.cn/](https://hack.lug.ustc.edu.cn/)
 
 比赛时间：北京时间 2022 年 10 月 22 日 中午 12:00 ～ 10 月 29 日 中午 12:00（共七天）
+
+[比赛元数据存档](archive/)
 
 ## 目录
 
@@ -107,8 +109,6 @@
 [Hackergame 2022 幕后工作人员](./credits.pdf)
 
 [搞笑 Flag & 花絮](./behind-the-scenes/README.md)
-
-[纪念衫（暂缺）](./T-shirt/README.md)
 
 ### 历年题解
 
